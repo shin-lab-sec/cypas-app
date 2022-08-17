@@ -5,14 +5,22 @@ export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
 export class HttpError extends Error {
   url: string
-  status: number
+  statusText: string
   message: string
-  constructor(response: Response) {
+  constructor(url: string, statusText: string, message: string) {
     super()
     this.name = 'HttpError'
-    this.url = response.url
-    this.status = response.status
-    this.message = response.statusText
+    this.url = url
+    this.statusText = statusText
+    this.message = message
+  }
+  public static init = async (response: Response) => {
+    const json = (await response.json()) as { message: string }
+    return new HttpError(
+      response.url,
+      response.status + ' ' + response.statusText,
+      json.message,
+    )
   }
 }
 
@@ -70,7 +78,7 @@ export const fetchApi = async <T>(
     })
 
     if (!res.ok) {
-      throw new HttpError(res)
+      throw await HttpError.init(res)
     }
     result = await res.json()
   } catch (error) {
