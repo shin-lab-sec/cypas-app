@@ -1,6 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
-import { postApi } from 'utils/api'
+import { HttpError, postApi } from 'utils/api'
 
 const Home: NextPage = () => {
   // docker
@@ -20,20 +20,27 @@ const Home: NextPage = () => {
             className="w-[70%]"
             type="text"
             value={command}
+            placeholder={'dockerの後の部分から入力'}
             onChange={e => setCommand(e.target.value)}
           />
           <button
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
-              const res = await postApi('localhost:5000/docker', {
-                command,
-              })
-              setRes(res)
+              try {
+                const res = await postApi('localhost:5000/docker', {
+                  command,
+                })
+                setRes(res)
+              } catch (e) {
+                if (e instanceof HttpError) {
+                  setRes(e.statusText)
+                }
+              }
             }}
           >
             実行
           </button>
-          {JSON.stringify(res)}
+          <p>{JSON.stringify(res)}</p>
         </div>
         <div className="w-[50%] max-w-xl ">
           <h2>ターミナル</h2>

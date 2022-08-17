@@ -11,7 +11,9 @@ export type Api = Schema<{
   // メソッド名: {
   //   url: [リクエストの型、レスポンスの型]
   // }
-  GET: {}
+  GET: {
+    'localhost:5000/redis': [undefined, { massage: string }]
+  }
   POST: {
     'localhost:5000/docker': [{ command: string }, any]
   }
