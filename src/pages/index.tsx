@@ -27,7 +27,7 @@ const Home: NextPage = () => {
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                const res = await postApi('localhost:5000/docker', {
+                const res = await postApi('api.localhost.com/docker', {
                   command,
                 })
                 setRes(res)

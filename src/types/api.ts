@@ -12,10 +12,10 @@ export type Api = Schema<{
   //   url: [リクエストの型、レスポンスの型]
   // }
   GET: {
-    'localhost:5000/redis': [undefined, { massage: string }]
+    'api.localhost.com/redis': [undefined, { massage: string }]
   }
   POST: {
-    'localhost:5000/docker': [{ command: string }, any]
+    'api.localhost.com/docker': [{ command: string }, any]
   }
   PUT: {}
   DELETE: {}

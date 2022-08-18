@@ -71,7 +71,7 @@ export const fetchApi = async <T>(
 
   let result
   try {
-    const res = await fetch(encodeURI('http://' + requestUrl), {
+    const res = await fetch(encodeURI('https://' + requestUrl), {
       method,
       body: isEmptyObj(requestParams) ? null : JSON.stringify(requestParams),
       headers: { ...requestHeaders },
