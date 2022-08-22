@@ -16,6 +16,8 @@ export type Api = Schema<{
   }
   POST: {
     'api.localhost.com/docker': [{ command: string }, any]
+    'api.localhost.com/terminal/start': [{ key: string }, undefined]
+    'api.localhost.com/terminal/delete': [{ key: string }, undefined]
   }
   PUT: {}
   DELETE: {}

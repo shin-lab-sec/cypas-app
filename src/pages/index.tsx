@@ -8,8 +8,8 @@ const Home: NextPage = () => {
   const [res, setRes] = useState<any>()
 
   // terminal
-  const [tmp, setTmp] = useState('http://localhost:9999')
-  const [url, setUrl] = useState('http://localhost:9999')
+  const [name, setName] = useState('')
+  const [url, setUrl] = useState('')
   return (
     <div className="h-screen bg-gray-100">
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
@@ -47,16 +47,49 @@ const Home: NextPage = () => {
           <input
             className="mb-6 w-[70%]"
             type="text"
-            value={tmp}
-            onChange={e => setTmp(e.target.value)}
+            value={name}
+            placeholder={'ユーザー名'}
+            onChange={e => setName(e.target.value)}
           />
           <button
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
-            onClick={async () => setUrl(tmp)}
+            onClick={async () => {
+              setTimeout(
+                () =>
+                  setUrl(`https://wettyproxy.localhost.com/shell?key=${name}`),
+                2000,
+              )
+              try {
+                await postApi('api.localhost.com/terminal/start', {
+                  key: name,
+                })
+              } catch (e) {
+                if (e instanceof HttpError) {
+                  console.log(e)
+                }
+              }
+            }}
           >
-            実行
+            スタート
           </button>
-          <iframe src={url} width="100%" height="100%"></iframe>
+          <button
+            className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
+            onClick={async () => {
+              try {
+                await postApi('api.localhost.com/terminal/delete', {
+                  key: name,
+                })
+              } catch (e) {
+                if (e instanceof HttpError) {
+                  console.log(e)
+                }
+              }
+            }}
+          >
+            削除
+          </button>
+
+          {url && <iframe src={url} width="100%" height="100%"></iframe>}
         </div>
       </div>
     </div>
