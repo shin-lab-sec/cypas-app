@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
+    "dev:proxy": "dev-rev-proxy -h localhost.com -p 443 --cert ssl/server.crt --key ssl/server.key --target-host localhost --target-port 3000 -d",
     "build": "next build",
     "start": "next start",
     "lint": "next lint"
@@ -18,6 +19,7 @@
     "@types/react": "18.0.15",
     "@types/react-dom": "18.0.6",
     "autoprefixer": "^10.4.7",
+    "dev-rev-proxy": "^0.1.1",
     "eslint": "8.20.0",
     "eslint-config-next": "^12.2.2",
     "eslint-config-prettier": "^8.5.0",
