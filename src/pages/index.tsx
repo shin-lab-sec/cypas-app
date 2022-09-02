@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
+import { useStartTerminal } from 'hooks/useTerminal'
 import { HttpError, postApi } from 'utils/api'
 
 const Home: NextPage = () => {
@@ -8,8 +9,8 @@ const Home: NextPage = () => {
   const [res, setRes] = useState<any>()
 
   // terminal
-  const [name, setName] = useState('')
-  const [url, setUrl] = useState('')
+  const [userId, setUserId] = useState('')
+  const { iframeSrc, startTerminal } = useStartTerminal()
   return (
     <div className="h-screen bg-gray-100">
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
@@ -47,22 +48,15 @@ const Home: NextPage = () => {
           <input
             className="mb-6 w-[70%]"
             type="text"
-            value={name}
+            value={userId}
             placeholder={'ユーザー名'}
-            onChange={e => setName(e.target.value)}
+            onChange={e => setUserId(e.target.value)}
           />
           <button
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
-              setTimeout(
-                () =>
-                  setUrl(`https://wettyproxy.localhost.com/shell?key=${name}`),
-                2000,
-              )
               try {
-                await postApi('api.localhost.com/terminal/start', {
-                  key: name,
-                })
+                await startTerminal(userId)
               } catch (e) {
                 if (e instanceof HttpError) {
                   console.log(e)
@@ -77,7 +71,7 @@ const Home: NextPage = () => {
             onClick={async () => {
               try {
                 await postApi('api.localhost.com/terminal/delete', {
-                  key: name,
+                  userId,
                 })
               } catch (e) {
                 if (e instanceof HttpError) {
@@ -89,7 +83,9 @@ const Home: NextPage = () => {
             削除
           </button>
 
-          {url && <iframe src={url} width="100%" height="100%"></iframe>}
+          {iframeSrc && (
+            <iframe src={iframeSrc} width="100%" height="100%"></iframe>
+          )}
         </div>
       </div>
     </div>
