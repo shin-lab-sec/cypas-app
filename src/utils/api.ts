@@ -100,7 +100,7 @@ export const getApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['GET'][Url][0]>]
-) => fetchApi<Response>(url, 'GET', args[0])
+) => fetchApi<Response>(url, 'GET', args.at(0))
 
 export const postApi = async <
   Url extends keyof Api['POST'],
@@ -111,7 +111,7 @@ export const postApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['POST'][Url][0]>]
-) => fetchApi<Response>(url, 'POST', args[0])
+) => fetchApi<Response>(url, 'POST', args.at(0))
 
 export const putApi = async <
   Url extends keyof Api['PUT'],
@@ -122,7 +122,7 @@ export const putApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['PUT'][Url][0]>]
-) => fetchApi<Response>(url, 'PUT', args[0])
+) => fetchApi<Response>(url, 'PUT', args.at(0))
 
 export const deleteApi = async <
   Url extends keyof Api['DELETE'],
@@ -132,4 +132,4 @@ export const deleteApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['DELETE'][Url][0]>]
-) => fetchApi<undefined>(url, 'DELETE', args[0])
+) => fetchApi<undefined>(url, 'DELETE', args.at(0))
