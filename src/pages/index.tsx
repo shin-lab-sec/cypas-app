@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import { useStartTerminal } from 'hooks/useTerminal'
-import { HttpError, postApi } from 'utils/api/api'
+import { getApi, HttpError, postApi } from 'utils/api/api'
 
 const Home: NextPage = () => {
   // docker
@@ -56,7 +56,15 @@ const Home: NextPage = () => {
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                await startTerminal(userId)
+                console.log(
+                  (
+                    await getApi('/api/hello', {
+                      message: 'aaaa',
+                      test: 235,
+                    })
+                  ).message,
+                )
+                // await startTerminal(userId)
               } catch (e) {
                 if (e instanceof HttpError) {
                   console.log(e)
