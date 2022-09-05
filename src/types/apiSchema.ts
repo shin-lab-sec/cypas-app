@@ -12,7 +12,7 @@ export type Api = Schema<{
   //   url: [リクエストの型、レスポンスの型]
   // }
   GET: {
-    '/api/hello': [undefined, { message: string }]
+    '/api/hello': [{ message: string; test: number }, { message: string }]
     '/server/redis': [undefined, { massage: string }]
   }
   POST: {

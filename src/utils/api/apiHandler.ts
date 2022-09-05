@@ -7,6 +7,7 @@ type UrlMap =
   | keyof Api['PUT']
   | keyof Api['DELETE']
 
+type ApiGetRequest<T> = Omit<NextApiRequest, 'body' | 'query'> & { query: T }
 type ApiRequest<T> = Omit<NextApiRequest, 'body'> & { body: T }
 type ApiResponse<T> = NextApiResponse<T>
 
@@ -15,7 +16,7 @@ export const apiHandler =
     _url: Url,
     handlers: {
       getHandler?: (
-        req: ApiRequest<
+        req: ApiGetRequest<
           Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
         >,
         res: ApiResponse<
@@ -51,7 +52,13 @@ export const apiHandler =
   (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
       case 'GET':
-        handlers.getHandler?.(req, res)
+        handlers.getHandler?.(
+          // req.queryに強制的に型を付けるため
+          req as unknown as ApiGetRequest<
+            Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
+          >,
+          res,
+        )
         break
       case 'POST':
         handlers.postHandler?.(req, res)
