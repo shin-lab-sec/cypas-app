@@ -13,9 +13,9 @@ export const useStartTerminal = (): {
     })
 
     // このレスポンスでcookieにkeyが設定される
-    setUrl(`https://wettyproxy.localhost.com/shell?key=${key}`)
+    setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}/shell?key=${key}`)
     // iframeのリダイレクトがうまくできなかったのでここでリダイレクト
-    setTimeout(() => setUrl(`https://wettyproxy.localhost.com`), 2000)
+    setTimeout(() => setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}`), 2000)
   }, [])
 
   return {
