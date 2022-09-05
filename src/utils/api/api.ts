@@ -1,5 +1,5 @@
-import { Api } from '../types/api'
-import { isEmptyObj } from './isEmptyObj'
+import { Api } from '../../types/apiSchema'
+import { isEmptyObj } from '../isEmptyObj'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
@@ -42,6 +42,12 @@ export const fetchApi = async <T>(
   let requestParams = { ...params }
   let requestHeaders = headers || {}
 
+  if (url.startsWith('/api')) {
+    requestUrl = `${process.env.NEXT_PUBLIC_CLIENT_URL}${url}`
+  } else if (url.startsWith('/server')) {
+    requestUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${url.slice(7)}`
+  }
+
   if (method === 'GET') {
     // /example/:id -> /example/1
     requestUrl = url
@@ -71,7 +77,7 @@ export const fetchApi = async <T>(
 
   let result
   try {
-    const res = await fetch(encodeURI('https://' + requestUrl), {
+    const res = await fetch(encodeURI(requestUrl), {
       method,
       body: isEmptyObj(requestParams) ? null : JSON.stringify(requestParams),
       headers: { ...requestHeaders },
