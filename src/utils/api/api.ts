@@ -42,6 +42,7 @@ export const fetchApi = async <T>(
   let requestParams = { ...params }
   let requestHeaders = headers || {}
 
+  // Api Routesと自前serverの場合で振り分ける
   if (url.startsWith('/api')) {
     requestUrl = `${process.env.NEXT_PUBLIC_CLIENT_URL}${url}`
   } else if (url.startsWith('/server')) {
