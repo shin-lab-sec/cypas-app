@@ -1,0 +1,15 @@
+version: '3.9'
+services:
+  nextjs:
+    build:
+      context: .
+      dockerfile: ./Dockerfile.dev
+    image: nextjs
+    container_name: nextjs
+    environment:
+      - WATCHPACK_POLLING=true
+    volumes:
+      - .:/app
+    entrypoint: yarn run dev
+    ports:
+      - 3000:3000
