@@ -3,7 +3,7 @@ services:
   nextjs:
     build:
       context: .
-      dockerfile: ./Dockerfile.dev
+      dockerfile: ./docker/nextjs/Dockerfile.dev
     image: nextjs
     container_name: nextjs
     environment:
@@ -13,3 +13,17 @@ services:
     entrypoint: yarn run dev
     ports:
       - 3000:3000
+  mysql:
+    build:
+      context: .
+      dockerfile: ./docker/mysql/Dockerfile.dev
+    image: mysql
+    container_name: mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: test
+    ports:
+      - 3306:3306
+    volumes:
+      - mysql-db-store:/var/lib/mysql
+volumes:
+  mysql-db-store:
