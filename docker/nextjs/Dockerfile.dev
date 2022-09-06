@@ -4,3 +4,4 @@ WORKDIR /app
 COPY . .
 
 RUN yarn install
+RUN yarn run prisma dev

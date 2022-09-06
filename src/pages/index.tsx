@@ -64,6 +64,9 @@ const Home: NextPage = () => {
                     })
                   ).message,
                 )
+                await postApi('/api/users', {
+                  email: 'test@test',
+                })
                 // await startTerminal(userId)
               } catch (e) {
                 if (e instanceof HttpError) {
