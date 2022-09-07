@@ -9,8 +9,7 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     volumes:
-      - .:/app
-    entrypoint: yarn run dev
+      - ./:/app
     ports:
       - 3000:3000
   mysql:

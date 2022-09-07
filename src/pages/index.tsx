@@ -65,7 +65,7 @@ const Home: NextPage = () => {
                   ).message,
                 )
                 await postApi('/api/users', {
-                  email: 'test@test',
+                  email: 'dfvdbf@test',
                 })
                 // await startTerminal(userId)
               } catch (e) {
