@@ -1,9 +1,11 @@
+import { useSession, signIn, signOut } from 'next-auth/react'
 import type { NextPage } from 'next'
 import { useState } from 'react'
 import { useStartTerminal } from 'hooks/useTerminal'
 import { getApi, HttpError, postApi } from 'utils/api/api'
 
 const Home: NextPage = () => {
+  const { data: session, status } = useSession()
   // docker
   const [command, setCommand] = useState('')
   const [res, setRes] = useState<any>()
@@ -11,8 +13,27 @@ const Home: NextPage = () => {
   // terminal
   const [userId, setUserId] = useState('')
   const { iframeSrc, startTerminal } = useStartTerminal()
+
+  if (status === 'unauthenticated') {
+    return (
+      <button
+        className="border-black border rounded-md p-1"
+        onClick={async () => await signIn()}
+      >
+        sign in
+      </button>
+    )
+  }
   return (
     <div className="h-screen bg-gray-100">
+      <button
+        className="border-black border rounded-md p-1"
+        onClick={async () => await signOut()}
+      >
+        sign out
+      </button>
+      <div>user: {session?.user?.email}</div>
+
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
       <div className="mx-10 mt-10 flex h-[80%] justify-evenly gap-10">
         <div className="w-[50%] max-w-xl">
