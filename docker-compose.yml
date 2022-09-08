@@ -12,6 +12,9 @@ services:
       - ./:/app
     ports:
       - 3000:3000
+      # コンテナ内部のdnsではバックエンド側のドメインを名前解決できないため
+    dns:
+      - 'localhost:127.0.0.1'
   mysql:
     build:
       context: .
