@@ -23,9 +23,23 @@ services:
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: test
-    ports:
-      - 3306:3306
+      TZ: 'Asia/Tokyo'
     volumes:
       - mysql-db-store:/var/lib/mysql
+
+  mail:
+    build:
+      context: .
+      dockerfile: ./docker/mail/Dockerfile.dev
+    image: mail
+    container_name: mail
+    ports:
+      - '8025:8025'
+    environment:
+      MH_STORAGE: maildir
+      MH_MAILDIR_PATH: /tmp
+    volumes:
+      - maildir:/tmp
 volumes:
   mysql-db-store:
+  maildir: {}

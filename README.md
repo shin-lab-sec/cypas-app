@@ -14,25 +14,17 @@ git clone https://github.com/shin-lab-sec/cyber-range-client.git
 
 ### step2
 
-ライブラリをインストール
-
-```
-yarn
-```
-
-### step3
-
-nextjs と mysql のコンテナ起動
+コンテナ起動
 
 ```
 docker compose up
 ```
 
-### step4
+### step3
 
 コンテナ起動後は vscode で nextjs コンテナに接続（基本作業はコンテナ内）
 
-### step5
+### step4
 
 初回の場合は db の migrate をする
 
