@@ -1,18 +1,38 @@
 import type { NextPage } from 'next'
+import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { useStartTerminal } from 'hooks/useTerminal'
-import { getApi, HttpError, postApi } from 'utils/api/api'
+import { HttpError, postApi } from 'utils/api/api'
 
 const Home: NextPage = () => {
+  const { data: session, status } = useSession()
+
   // docker
   const [command, setCommand] = useState('')
   const [res, setRes] = useState<any>()
 
-  // terminal
-  const [userId, setUserId] = useState('')
   const { iframeSrc, startTerminal } = useStartTerminal()
+
+  if (status === 'unauthenticated' || !session) {
+    return (
+      <button
+        className="rounded-md border border-black p-1"
+        onClick={() => signIn()}
+      >
+        sign in
+      </button>
+    )
+  }
   return (
     <div className="h-screen bg-gray-100">
+      <button
+        className="rounded-md border border-black p-1"
+        onClick={() => signOut()}
+      >
+        sign out
+      </button>
+      <div>user: {session.user.email}</div>
+
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
       <div className="mx-10 mt-10 flex h-[80%] justify-evenly gap-10">
         <div className="w-[50%] max-w-xl">
@@ -45,26 +65,11 @@ const Home: NextPage = () => {
         </div>
         <div className="w-[50%] max-w-xl ">
           <h2>ターミナル</h2>
-          <input
-            className="mb-6 w-[70%]"
-            type="text"
-            value={userId}
-            placeholder={'ユーザー名'}
-            onChange={e => setUserId(e.target.value)}
-          />
           <button
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                console.log(
-                  (
-                    await getApi('/api/hello', {
-                      message: 'aaaa',
-                      test: 235,
-                    })
-                  ).message,
-                )
-                // await startTerminal(userId)
+                await startTerminal(session.user.id)
               } catch (e) {
                 if (e instanceof HttpError) {
                   console.log(e)
@@ -79,7 +84,7 @@ const Home: NextPage = () => {
             onClick={async () => {
               try {
                 await postApi('/server/terminal/delete', {
-                  userId,
+                  userId: session.user.id,
                 })
               } catch (e) {
                 if (e instanceof HttpError) {

@@ -1,3 +1,4 @@
+import { Prisma } from '@prisma/client'
 import { HttpMethod } from '../utils/api/api'
 
 type Schema<
@@ -16,6 +17,7 @@ export type Api = Schema<{
     '/server/redis': [undefined, { massage: string }]
   }
   POST: {
+    '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
     '/server/docker': [{ command: string }, any]
     '/server/terminal/start': [{ userId: string }, { key: string }]
     '/server/terminal/delete': [{ userId: string }, undefined]

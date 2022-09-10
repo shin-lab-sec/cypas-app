@@ -1,0 +1,4 @@
+// swcを使用するとprisma generateの時にバイナリ関係のエラーが出たため
+{
+  "presets": ["next/babel"]
+}
