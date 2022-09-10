@@ -13,14 +13,14 @@ export type Api = Schema<{
   //   url: [リクエストの型、レスポンスの型]
   // }
   GET: {
-    '/api/hello': [{ message: string; test: number }, { message: string }]
-    '/server/redis': [undefined, { massage: string }]
+    '@api/hello': [{ message: string; test: number }, { message: string }]
+    '@server/redis': [undefined, { massage: string }]
   }
   POST: {
-    '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
-    '/server/docker': [{ command: string }, any]
-    '/server/terminal/start': [{ userId: string }, { key: string }]
-    '/server/terminal/delete': [{ userId: string }, undefined]
+    '@api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
+    '@server/docker': [{ command: string }, any]
+    '@server/terminal/start': [{ userId: string }, { key: string }]
+    '@server/terminal/delete': [{ userId: string }, undefined]
   }
   PUT: {}
   DELETE: {}

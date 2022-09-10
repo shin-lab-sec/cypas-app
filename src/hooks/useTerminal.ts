@@ -8,7 +8,7 @@ export const useStartTerminal = (): {
   const [url, setUrl] = useState('')
 
   const startTerminal = useCallback(async (userId: string) => {
-    const { key } = await postApi('/server/terminal/start', {
+    const { key } = await postApi('@server/terminal/start', {
       userId,
     })
 

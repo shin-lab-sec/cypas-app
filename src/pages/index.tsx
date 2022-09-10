@@ -48,7 +48,7 @@ const Home: NextPage = () => {
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                const res = await postApi('/server/docker', {
+                const res = await postApi('@server/docker', {
                   command,
                 })
                 setRes(res)
@@ -83,7 +83,7 @@ const Home: NextPage = () => {
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                await postApi('/server/terminal/delete', {
+                await postApi('@server/terminal/delete', {
                   userId: session.user.id,
                 })
               } catch (e) {
