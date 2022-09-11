@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { useStartTerminal } from 'hooks/useTerminal'
-import { HttpError, postApi } from 'utils/api/api'
+import { ApiError, postApi } from 'utils/apiClient'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
@@ -53,7 +53,7 @@ const Home: NextPage = () => {
                 })
                 setRes(res)
               } catch (e) {
-                if (e instanceof HttpError) {
+                if (e instanceof ApiError) {
                   setRes(e.statusText)
                 }
               }
@@ -71,7 +71,7 @@ const Home: NextPage = () => {
               try {
                 await startTerminal(session.user.id)
               } catch (e) {
-                if (e instanceof HttpError) {
+                if (e instanceof ApiError) {
                   console.log(e)
                 }
               }
@@ -87,7 +87,7 @@ const Home: NextPage = () => {
                   userId: session.user.id,
                 })
               } catch (e) {
-                if (e instanceof HttpError) {
+                if (e instanceof ApiError) {
                   console.log(e)
                 }
               }

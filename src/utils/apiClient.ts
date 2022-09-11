@@ -1,22 +1,22 @@
-import { Api } from '../../types/apiSchema'
-import { isEmptyObj } from '../isEmptyObj'
+import { isEmptyObj } from './isEmptyObj'
+import { Api } from 'types/apiSchema'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 
-export class HttpError extends Error {
+export class ApiError extends Error {
   url: string
   statusText: string
   message: string
   constructor(url: string, statusText: string, message: string) {
     super()
-    this.name = 'HttpError'
+    this.name = 'ApiError'
     this.url = url
     this.statusText = statusText
     this.message = message
   }
   public static init = async (response: Response) => {
     const json = (await response.json()) as { message: string }
-    return new HttpError(
+    return new ApiError(
       response.url,
       response.status + ' ' + response.statusText,
       json.message,
@@ -124,11 +124,11 @@ export async function fetchApi<T>(
     })
 
     if (!res.ok) {
-      throw await HttpError.init(res)
+      throw await ApiError.init(res)
     }
     result = await res.json()
   } catch (error) {
-    if (error instanceof HttpError) {
+    if (error instanceof ApiError) {
       throw error
     }
     console.error(error)

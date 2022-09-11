@@ -1,5 +1,5 @@
 import { Prisma } from '@prisma/client'
-import { HttpMethod } from '../utils/api/api'
+import { HttpMethod } from 'utils/apiClient'
 
 type Schema<
   T extends Record<

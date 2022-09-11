@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import { postApi } from 'utils/api/api'
+import { postApi } from 'utils/apiClient'
 
 export const useStartTerminal = (): {
   iframeSrc: string
