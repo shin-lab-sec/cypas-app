@@ -15,7 +15,7 @@ export const apiHandler =
   <Url extends UrlMap>(
     _url: Url,
     handlers: {
-      getHandler?: (
+      get?: (
         req: ApiGetRequest<
           Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
         >,
@@ -23,7 +23,7 @@ export const apiHandler =
           Url extends keyof Api['GET'] ? Api['GET'][Url][1] : undefined
         >,
       ) => void
-      postHandler?: (
+      post?: (
         req: ApiRequest<
           Url extends keyof Api['POST'] ? Api['POST'][Url][0] : undefined
         >,
@@ -31,7 +31,7 @@ export const apiHandler =
           Url extends keyof Api['POST'] ? Api['POST'][Url][1] : undefined
         >,
       ) => void
-      putHandler?: (
+      put?: (
         req: ApiRequest<
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][0] : undefined
         >,
@@ -39,7 +39,7 @@ export const apiHandler =
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][1] : undefined
         >,
       ) => void
-      deleteHandler?: (
+      delete?: (
         req: ApiRequest<
           Url extends keyof Api['DELETE'] ? Api['DELETE'][Url][0] : undefined
         >,
@@ -52,7 +52,7 @@ export const apiHandler =
   (req: NextApiRequest, res: NextApiResponse) => {
     switch (req.method) {
       case 'GET':
-        handlers.getHandler?.(
+        handlers.get?.(
           // req.queryに強制的に型を付けるため
           req as unknown as ApiGetRequest<
             Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
@@ -61,13 +61,13 @@ export const apiHandler =
         )
         break
       case 'POST':
-        handlers.postHandler?.(req, res)
+        handlers.post?.(req, res)
         break
       case 'PUT':
-        handlers.putHandler?.(req, res)
+        handlers.put?.(req, res)
         break
       case 'DELETE':
-        handlers.deleteHandler?.(req, res)
+        handlers.delete?.(req, res)
         break
       default:
         res.status(405).json({ message: 'unknown method' })
