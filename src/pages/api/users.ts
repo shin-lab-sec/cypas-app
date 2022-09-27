@@ -2,7 +2,7 @@ import prisma from 'libs/prisma'
 import { apiHandler } from 'utils/apiHandler'
 
 export default apiHandler('@api/users', {
-  async postHandler(req, res) {
+  async post(req, res) {
     try {
       const result = await prisma.user.create({
         data: req.body,
