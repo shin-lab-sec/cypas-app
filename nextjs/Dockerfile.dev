@@ -1,8 +1,7 @@
 FROM node:16-alpine
 
 WORKDIR /app
+RUN apk add bash
 
 COPY package.json ./
 RUN yarn --frozen-lockfile
-
-ENTRYPOINT [ "yarn","run","dev" ]

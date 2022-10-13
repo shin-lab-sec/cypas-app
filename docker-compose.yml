@@ -4,23 +4,28 @@ services:
     build:
       context: ./nextjs
       dockerfile: Dockerfile.dev
-    image: nextjs
     container_name: nextjs
-    environment:
-      - WATCHPACK_POLLING=true
     volumes:
       - ./nextjs:/app
       - nextjs_node_modules:/app/node_modules
-    ports:
-      - 3000:3000
+    environment:
+      - WATCHPACK_POLLING=true
       # コンテナ内部のdnsではバックエンド側のドメインを名前解決できないため
     dns:
-      - 'localhost:127.0.0.1'
+      - host
+    ports:
+      - 3000:3000
+    depends_on:
+      - mysql
+    entrypoint: >
+      bash -c "
+      npx prisma migrate dev --name init &&
+      yarn run dev
+      "
   mysql:
     build:
       context: ./mysql
       dockerfile: Dockerfile.dev
-    image: mysql
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: test
@@ -32,7 +37,6 @@ services:
     build:
       context: ./mail
       dockerfile: Dockerfile.dev
-    image: mail
     container_name: mail
     ports:
       - '8025:8025'
@@ -44,4 +48,4 @@ services:
 volumes:
   nextjs_node_modules:
   mysql-db-store:
-  maildir: {}
+  maildir:

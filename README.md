@@ -23,11 +23,3 @@ docker compose up
 ### step3
 
 コンテナ起動後は vscode で nextjs コンテナに接続（基本作業はコンテナ内）
-
-### step4
-
-初回の場合は db の migrate をする
-
-```
-npx prisma migrate dev --name init
-```
