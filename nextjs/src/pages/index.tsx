@@ -70,7 +70,7 @@ const Home: NextPage = () => {
               className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await startTerminal(session.user.id)
+                  await startTerminal(session.user.id, "0XXX1111")
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)

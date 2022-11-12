@@ -3,13 +3,14 @@ import { postApi } from 'utils/apiClient'
 
 export const useStartTerminal = (): {
   iframeSrc: string
-  startTerminal: (userId: string) => Promise<void>
+  startTerminal: (userId: string, userName:string) => Promise<void>
 } => {
   const [url, setUrl] = useState('')
 
-  const startTerminal = useCallback(async (userId: string) => {
+  const startTerminal = useCallback(async (userId: string,userName:string) => {
     const { key } = await postApi('@server/terminal/start', {
       userId,
+      userName
     })
 
     // このレスポンスでcookieにkeyが設定される

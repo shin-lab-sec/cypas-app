@@ -19,7 +19,10 @@ export type Api = Schema<{
   POST: {
     '@api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
     '@server/docker': [{ command: string }, any]
-    '@server/terminal/start': [{ userId: string }, { key: string }]
+    '@server/terminal/start': [
+      { userId: string; userName: string },
+      { key: string },
+    ]
     '@server/terminal/delete': [{ userId: string }, undefined]
   }
   PUT: {}
