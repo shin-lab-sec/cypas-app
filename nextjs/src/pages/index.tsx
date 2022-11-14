@@ -70,7 +70,7 @@ const Home: NextPage = () => {
               className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await startTerminal(session.user.id, "0XXX1111")
+                  await startTerminal(session.user.id, '0xxx1111')
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -99,9 +99,12 @@ const Home: NextPage = () => {
           </div>
 
           <div className="mt-2 flex-1">
-            {iframeSrc && (
+            {/* {iframeSrc && (
               <iframe src={iframeSrc} width="100%" height="100%"></iframe>
-            )}
+            )} */}
+            <a href={iframeSrc} target="_blank">
+              {iframeSrc}
+            </a>
           </div>
         </div>
       </div>
