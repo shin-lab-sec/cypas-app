@@ -22,6 +22,7 @@ services:
       npx prisma migrate dev --name init &&
       yarn run dev
       "
+    restart: on-failure
   mysql:
     build:
       context: ./mysql
