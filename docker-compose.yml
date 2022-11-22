@@ -8,6 +8,7 @@ services:
     volumes:
       - ./nextjs:/app
       - nextjs_node_modules:/app/node_modules
+      - .vscode:/app/.vscode
     environment:
       - WATCHPACK_POLLING=true
       # コンテナ内部のdnsではバックエンド側のドメインを名前解決できないため
