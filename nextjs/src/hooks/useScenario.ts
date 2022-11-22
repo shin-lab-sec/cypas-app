@@ -1,15 +1,15 @@
 import { useCallback, useState } from 'react'
 import { postApi } from 'utils/apiClient'
 
-export const useStartTerminal = (): {
+export const useStartScenario = (): {
   iframeSrc: string
-  startTerminal: (userId: string, userName: string) => Promise<void>
+  startScenario: (userId: string, userName: string) => Promise<void>
 } => {
   const [url, setUrl] = useState('')
 
-  const startTerminal = useCallback(
+  const startScenario = useCallback(
     async (userId: string, userName: string) => {
-      const { key } = await postApi('@server/terminal/start', {
+      const { key } = await postApi('@server/scenario/start', {
         userId,
         userName,
       })
@@ -24,6 +24,6 @@ export const useStartTerminal = (): {
 
   return {
     iframeSrc: url,
-    startTerminal,
+    startScenario,
   }
 }

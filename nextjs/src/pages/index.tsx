@@ -1,7 +1,7 @@
 import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
-import { useStartTerminal } from 'hooks/useTerminal'
+import { useStartScenario } from 'hooks/useScenario'
 import { ApiError, postApi } from 'utils/apiClient'
 
 const Home: NextPage = () => {
@@ -11,7 +11,7 @@ const Home: NextPage = () => {
   const [command, setCommand] = useState('')
   const [res, setRes] = useState<any>()
 
-  const { iframeSrc, startTerminal } = useStartTerminal()
+  const { iframeSrc, startScenario } = useStartScenario()
 
   if (status === 'unauthenticated' || !session) {
     return (
@@ -70,7 +70,7 @@ const Home: NextPage = () => {
               className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await startTerminal(session.user.id, '0xxx1111')
+                  await startScenario(session.user.id, '0xxx1111')
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -84,7 +84,7 @@ const Home: NextPage = () => {
               className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await postApi('@server/terminal/delete', {
+                  await postApi('@server/scenario/delete', {
                     userId: session.user.id,
                   })
                 } catch (e) {
@@ -102,7 +102,7 @@ const Home: NextPage = () => {
             {/* {iframeSrc && (
               <iframe src={iframeSrc} width="100%" height="100%"></iframe>
             )} */}
-            <a href={iframeSrc} target="_blank">
+            <a href={iframeSrc} target="_blank" rel="noreferrer">
               {iframeSrc}
             </a>
           </div>
