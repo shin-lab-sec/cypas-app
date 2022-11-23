@@ -1,8 +1,8 @@
 import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
-import { useStartScenario } from 'hooks/useScenario'
-import { ApiError, postApi } from 'utils/apiClient'
+import { useDeleteScenario, useStartScenario } from 'hooks/useScenario'
+import { ApiError, deleteApi, postApi } from 'utils/apiClient'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
@@ -12,6 +12,7 @@ const Home: NextPage = () => {
   const [res, setRes] = useState<any>()
 
   const { iframeSrc, startScenario } = useStartScenario()
+  const { deleteScenario } = useDeleteScenario()
 
   if (status === 'unauthenticated' || !session) {
     return (
@@ -70,7 +71,7 @@ const Home: NextPage = () => {
               className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await startScenario(session.user.id, '0xxx1111')
+                  await startScenario()
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -84,9 +85,7 @@ const Home: NextPage = () => {
               className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await postApi('@server/scenario/delete', {
-                    userId: session.user.id,
-                  })
+                  await deleteScenario()
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
