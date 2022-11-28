@@ -2,6 +2,15 @@
 
 テーマ「クラウドベースのセキュリティ演習」の client 側のリポジトリ
 
+## 演習イメージ
+
+ターミナル
+![image](https://user-images.githubusercontent.com/65057976/204196908-12f6f64c-2437-4800-8402-5401f89523e3.png)
+
+仮想デスクトップ
+![image](https://user-images.githubusercontent.com/65057976/204194235-e33f904f-e498-4c1f-bb17-7cef8a78fa81.png)
+
+
 ## 開発環境準備
 
 ### step1
