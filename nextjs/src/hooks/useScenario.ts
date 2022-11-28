@@ -17,7 +17,7 @@ export const useStartScenario = (): {
     const { key } = await postApi('@server/scenario', {
       userId: session.user.id,
       // TODO: nameをアカウント作成時に設定する。
-      userName: session.user.name || session.user.id,
+      userName: "0xxx1111",
     })
 
     // このレスポンスでcookieにkeyが設定される
