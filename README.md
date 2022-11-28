@@ -4,10 +4,10 @@
 
 ## 演習イメージ
 
-ターミナル
+ターミナル（ウェブブラウザ経由）
 ![image](https://user-images.githubusercontent.com/65057976/204196908-12f6f64c-2437-4800-8402-5401f89523e3.png)
 
-仮想デスクトップ
+仮想デスクトップ（ウェブブラウザ経由）
 ![image](https://user-images.githubusercontent.com/65057976/204194235-e33f904f-e498-4c1f-bb17-7cef8a78fa81.png)
 
 
