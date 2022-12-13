@@ -1,7 +1,6 @@
-FROM node:16-alpine
+FROM node:16.15-bullseye-slim
 
 WORKDIR /app
-RUN apk add bash
-
+RUN apt-get update && apt-get -y install openssl bash
 COPY package.json ./
 RUN yarn --frozen-lockfile
