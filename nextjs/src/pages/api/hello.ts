@@ -1,4 +1,4 @@
-import { apiHandler } from 'utils/apiHandler'
+import { apiHandler } from 'apiRoutes/apiHandler'
 
 export default apiHandler('/api/hello', {
   get(req, res) {

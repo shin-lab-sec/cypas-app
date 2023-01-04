@@ -1,5 +1,5 @@
-import { isEmptyObj } from './isEmptyObj'
 import { Api } from 'types/apiSchema'
+import { isEmptyObj } from 'utils/isEmptyObj'
 
 export type HttpMethod = 'GET' | 'POST' | 'PUT' | 'DELETE'
 

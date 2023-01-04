@@ -1,5 +1,5 @@
+import { apiHandler } from 'apiRoutes/apiHandler'
 import prisma from 'libs/prisma'
-import { apiHandler } from 'utils/apiHandler'
 
 export default apiHandler('/api/users', {
   async post(req, res) {
