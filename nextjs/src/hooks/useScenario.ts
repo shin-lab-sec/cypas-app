@@ -14,17 +14,15 @@ export const useStartScenario = (): {
       return
     }
 
-    const { key } = await postApi('@server/scenario', {
+    const { key } = await postApi('/api/scenario', {
       userId: session.user.id,
       // TODO: nameをアカウント作成時に設定する。
-      userName: "0xxx1111",
+      userName: '0xxx1111',
     })
 
     // このレスポンスでcookieにkeyが設定される
     setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}/shell?key=${key}`)
-    // iframeのリダイレクトがうまくできなかったのでここでリダイレクト
-    // setTimeout(() => setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}`), 2000)
-  }, [])
+  }, [session])
 
   return {
     iframeSrc: url,
@@ -41,10 +39,10 @@ export const useDeleteScenario = (): {
     if (!session) {
       return
     }
-    await deleteApi('@server/scenario', {
+    await deleteApi('/api/scenario', {
       userId: session?.user.id,
     })
-  }, [])
+  }, [session])
 
   return { deleteScenario }
 }

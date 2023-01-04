@@ -2,7 +2,7 @@ import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { useDeleteScenario, useStartScenario } from 'hooks/useScenario'
-import { ApiError, deleteApi, postApi } from 'utils/apiClient'
+import { ApiError, postApi } from 'utils/apiClient'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
@@ -49,7 +49,7 @@ const Home: NextPage = () => {
             className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
             onClick={async () => {
               try {
-                const res = await postApi('@server/docker', {
+                const res = await postApi('/api/docker', {
                   command,
                 })
                 setRes(res)

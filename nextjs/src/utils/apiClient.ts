@@ -75,22 +75,15 @@ export const deleteApi = async <
     : [StrictPropertyCheck<Request, Api['DELETE'][Url][0]>]
 ) => fetchApi<undefined>(url, 'DELETE', args.at(0))
 
-export async function fetchApi<T>(
+export const fetchApi = async <T>(
   url: string,
   method: HttpMethod,
   params?: Record<string, any>,
   headers?: Record<string, string>,
-): Promise<T> {
+): Promise<T> => {
   let requestUrl = url
   let requestParams = { ...params }
   let requestHeaders = headers || {}
-
-  // Api Routesと自前serverの場合で振り分ける
-  if (url.startsWith('@api')) {
-    requestUrl = `${process.env.NEXT_PUBLIC_CLIENT_URL}/api${url.slice(4)}`
-  } else if (url.startsWith('@server')) {
-    requestUrl = `${process.env.NEXT_PUBLIC_SERVER_URL}${url.slice(7)}`
-  }
 
   // /example/:id -> /example/1
   requestUrl = requestUrl

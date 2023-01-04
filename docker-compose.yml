@@ -11,9 +11,10 @@ services:
       - .vscode:/app/.vscode
     environment:
       - WATCHPACK_POLLING=true
+    extra_hosts:
       # コンテナ内部のdnsではバックエンド側のドメインを名前解決できないため
-    dns:
-      - host
+      # 本当はホスト側のlocalhostに接続したいが、localhostの挙動が特殊なためルーターを経由して外からのアクセスと同等にしている
+      - 'api.cyber-range.test:${HOST_IP}'
     ports:
       - 3000:3000
     depends_on:
