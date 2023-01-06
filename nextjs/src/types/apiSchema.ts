@@ -1,4 +1,10 @@
 import { Prisma } from '@prisma/client'
+import {
+  ScenarioDeleteRequest,
+  ScenarioDeleteResponse,
+  ScenarioStartRequest,
+  ScenarioStartResponse,
+} from 'types/scenario'
 import { HttpMethod } from 'utils/apiClient'
 
 type Schema<
@@ -18,10 +24,10 @@ export type Api = Schema<{
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
     '/api/docker': [{ command: string }, any]
-    '/api/scenario': [{ userId: string; userName: string }, { key: string }]
+    '/api/scenario': [ScenarioStartRequest, ScenarioStartResponse]
   }
   PUT: {}
   DELETE: {
-    '/api/scenario': [{ userId: string }, undefined]
+    '/api/scenario': [ScenarioDeleteRequest, ScenarioDeleteResponse]
   }
 }>
