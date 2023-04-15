@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
 import { Session } from 'next-auth'
 import { getSession } from 'next-auth/react'
-import { Api } from 'types/apiSchema'
+import { Api } from '../../apiSchema'
 
 type UrlMap =
   | keyof Api['GET']
@@ -25,7 +25,7 @@ export const apiHandler =
           Url extends keyof Api['GET'] ? Api['GET'][Url][1] | Error : undefined
         >,
         session: Session,
-      ) => void
+      ) => Promise<void>
       post?: (
         req: ApiRequest<
           Url extends keyof Api['POST'] ? Api['POST'][Url][0] : undefined
@@ -36,7 +36,7 @@ export const apiHandler =
             : undefined
         >,
         session: Session,
-      ) => void
+      ) => Promise<void>
       put?: (
         req: ApiRequest<
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][0] : undefined
@@ -45,7 +45,7 @@ export const apiHandler =
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][1] | Error : undefined
         >,
         session: Session,
-      ) => void
+      ) => Promise<void>
       delete?: (
         req: ApiRequest<
           Url extends keyof Api['DELETE'] ? Api['DELETE'][Url][0] : undefined
@@ -56,7 +56,7 @@ export const apiHandler =
             : undefined
         >,
         session: Session,
-      ) => void
+      ) => Promise<void>
     },
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
@@ -67,7 +67,7 @@ export const apiHandler =
 
     switch (req.method) {
       case 'GET':
-        handlers.get?.(
+        await handlers.get?.(
           // req.queryに強制的に型を付けるため
           req as unknown as ApiGetRequest<
             Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
@@ -77,13 +77,13 @@ export const apiHandler =
         )
         break
       case 'POST':
-        handlers.post?.(req, res, session)
+        await handlers.post?.(req, res, session)
         break
       case 'PUT':
-        handlers.put?.(req, res, session)
+        await handlers.put?.(req, res, session)
         break
       case 'DELETE':
-        handlers.delete?.(req, res, session)
+        await handlers.delete?.(req, res, session)
         break
       default:
         res.status(405).json({ message: 'unknown method' })

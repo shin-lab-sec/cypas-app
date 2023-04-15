@@ -1,8 +1,9 @@
 import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
-import { useDeleteScenario, useStartScenario } from 'hooks/useScenario'
-import { ApiError, postApi } from 'utils/apiClient'
+import { useDeleteScenario, useStartScenario } from 'features/scenario/hooks'
+import { postApi } from 'utils/browser/apiClient'
+import { ApiError } from 'utils/fetchApi'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()

@@ -1,9 +1,9 @@
-export type ScenarioStartRequest = {
+export type ScenarioPostRequest = {
   userId: string
   userName: string
 }
 
-export type ScenarioStartResponse = {
+export type ScenarioPostResponse = {
   key: string
 }
 

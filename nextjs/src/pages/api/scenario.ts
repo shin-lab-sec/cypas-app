@@ -1,13 +1,12 @@
-import { fetchApi } from 'apiRoutes/apiClient'
-import { apiHandler } from 'apiRoutes/apiHandler'
-import { ScenarioDeleteResponse, ScenarioStartResponse } from 'types/scenario'
+import { ScenarioPostResponse } from 'features/scenario/apiTypes'
+import { deleteApi, postApi } from 'utils/server/apiClient'
+import { apiHandler } from 'utils/server/apiHandler'
 
 export default apiHandler('/api/scenario', {
   async post(req, res) {
     try {
-      const response = await fetchApi<ScenarioStartResponse>(
+      const response = await postApi<ScenarioPostResponse>(
         process.env.API_URL + '/scenario',
-        'POST',
         req.body,
       )
       return res.json(response)
@@ -18,9 +17,8 @@ export default apiHandler('/api/scenario', {
 
   async delete(req, res) {
     try {
-      const response = await fetchApi<ScenarioDeleteResponse>(
+      const response = await deleteApi(
         process.env.API_URL + '/scenario',
-        'DELETE',
         req.body,
       )
       return res.json(response)

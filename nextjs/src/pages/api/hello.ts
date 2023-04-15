@@ -1,11 +1,11 @@
-import { apiHandler } from 'apiRoutes/apiHandler'
+import { apiHandler } from 'utils/server/apiHandler'
 
 export default apiHandler('/api/hello', {
-  get(req, res) {
+  async get(req, res) {
     res.send({ message: req.query.message })
   },
   // 例
-  post(req, res) {},
-  put(req, res) {},
-  delete(req, res) {},
+  async post(req, res) {},
+  async put(req, res) {},
+  async delete(req, res) {},
 })

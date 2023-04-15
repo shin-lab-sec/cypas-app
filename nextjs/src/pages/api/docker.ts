@@ -1,12 +1,11 @@
-import { fetchApi } from 'apiRoutes/apiClient'
-import { apiHandler } from 'apiRoutes/apiHandler'
+import { postApi } from 'utils/server/apiClient'
+import { apiHandler } from 'utils/server/apiHandler'
 
 export default apiHandler('/api/docker', {
   async post(req, res) {
     try {
-      const response = await fetchApi<object>(
+      const response = await postApi<object>(
         process.env.API_URL + '/docker',
-        'POST',
         req.body,
       )
       return res.json(response)

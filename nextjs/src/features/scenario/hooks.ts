@@ -1,6 +1,6 @@
 import { useSession } from 'next-auth/react'
 import { useCallback, useState } from 'react'
-import { deleteApi, postApi } from 'utils/apiClient'
+import { deleteApi, postApi } from 'utils/browser/apiClient'
 
 export const useStartScenario = (): {
   iframeSrc: string
