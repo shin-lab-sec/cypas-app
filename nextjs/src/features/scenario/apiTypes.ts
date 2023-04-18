@@ -1,5 +1,5 @@
 export type ScenarioPostRequest = {
-  userId: string
+  scenarioKey: string
   userName: string
 }
 
@@ -8,7 +8,7 @@ export type ScenarioPostResponse = {
 }
 
 export type ScenarioDeleteRequest = {
-  userId: string
+  scenarioKey: string
 }
 
 export type ScenarioDeleteResponse = undefined

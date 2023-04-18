@@ -15,7 +15,7 @@ export const useStartScenario = (): {
     }
 
     const { key } = await postApi('/api/scenario', {
-      userId: session.user.id,
+      scenarioKey: session.user.id,
       // TODO: nameをアカウント作成時に設定する。
       userName: '0xxx1111',
     })
@@ -40,7 +40,7 @@ export const useDeleteScenario = (): {
       return
     }
     await deleteApi('/api/scenario', {
-      userId: session?.user.id,
+      scenarioKey: session?.user.id,
     })
   }, [session])
 
