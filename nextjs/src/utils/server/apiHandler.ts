@@ -1,7 +1,7 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { Session } from 'next-auth'
-import { getSession } from 'next-auth/react'
+import { Session, getServerSession } from 'next-auth'
 import { Api } from '../../apiSchema'
+import { authOptions } from 'pages/api/auth/[...nextauth]'
 
 type UrlMap =
   | keyof Api['GET']
@@ -60,7 +60,7 @@ export const apiHandler =
     },
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
-    const session = await getSession({ req })
+    const session = await getServerSession(req, res, authOptions)
     if (!session) {
       return res.status(403).json({ message: 'unauthorized error' })
     }
