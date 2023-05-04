@@ -9,8 +9,13 @@ type UrlMap =
   | keyof Api['PUT']
   | keyof Api['DELETE']
 
-type ApiGetRequest<T> = Omit<NextApiRequest, 'body' | 'query'> & { query: T }
-type ApiRequest<T> = Omit<NextApiRequest, 'body'> & { body: T }
+type ApiNonBodyRequest<T> = Omit<NextApiRequest, 'body' | 'query'> & {
+  query: T
+}
+type ApiNonQueryRequest<T> = Omit<NextApiRequest, 'body' | 'query'> & {
+  body: T
+}
+
 type ApiResponse<T> = NextApiResponse<T>
 
 export const apiHandler =
@@ -18,7 +23,7 @@ export const apiHandler =
     _url: Url,
     handlers: {
       get?: (
-        req: ApiGetRequest<
+        req: ApiNonBodyRequest<
           Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
         >,
         res: ApiResponse<
@@ -27,7 +32,7 @@ export const apiHandler =
         session: Session,
       ) => Promise<void>
       post?: (
-        req: ApiRequest<
+        req: ApiNonQueryRequest<
           Url extends keyof Api['POST'] ? Api['POST'][Url][0] : undefined
         >,
         res: ApiResponse<
@@ -38,7 +43,7 @@ export const apiHandler =
         session: Session,
       ) => Promise<void>
       put?: (
-        req: ApiRequest<
+        req: ApiNonQueryRequest<
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][0] : undefined
         >,
         res: ApiResponse<
@@ -47,7 +52,7 @@ export const apiHandler =
         session: Session,
       ) => Promise<void>
       delete?: (
-        req: ApiRequest<
+        req: ApiNonBodyRequest<
           Url extends keyof Api['DELETE'] ? Api['DELETE'][Url][0] : undefined
         >,
         res: ApiResponse<
@@ -69,7 +74,7 @@ export const apiHandler =
       case 'GET':
         await handlers.get?.(
           // req.queryに強制的に型を付けるため
-          req as unknown as ApiGetRequest<
+          req as unknown as ApiNonBodyRequest<
             Url extends keyof Api['GET'] ? Api['GET'][Url][0] : undefined
           >,
           res,
@@ -83,7 +88,14 @@ export const apiHandler =
         await handlers.put?.(req, res, session)
         break
       case 'DELETE':
-        await handlers.delete?.(req, res, session)
+        await handlers.delete?.(
+          // req.queryに強制的に型を付けるため
+          req as unknown as ApiNonBodyRequest<
+            Url extends keyof Api['DELETE'] ? Api['DELETE'][Url][0] : undefined
+          >,
+          res,
+          session,
+        )
         break
       default:
         res.status(405).json({ message: 'unknown method' })

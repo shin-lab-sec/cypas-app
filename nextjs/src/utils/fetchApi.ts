@@ -47,7 +47,7 @@ export const fetchApi = async <T>(
     .join('/')
 
   // /example/1 -> /example/1?searchWord="あああ"
-  if (method === 'GET') {
+  if (method === 'GET' || method === 'DELETE') {
     requestUrl += getQueryString(requestParams)
     requestParams = {}
   }

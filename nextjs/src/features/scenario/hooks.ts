@@ -3,29 +3,32 @@ import { useCallback, useState } from 'react'
 import { deleteApi, postApi } from 'utils/browser/apiClient'
 
 export const useStartScenario = (): {
-  iframeSrc: string
-  startScenario: () => Promise<void>
+  scenarioUrl: string
+  startScenario: (ownerName?: string) => Promise<void>
 } => {
   const { data: session } = useSession()
   const [url, setUrl] = useState('')
 
-  const startScenario = useCallback(async () => {
-    if (!session) {
-      return
-    }
+  const startScenario = useCallback(
+    async (ownerName?: string) => {
+      if (!session) {
+        return
+      }
 
-    const { key } = await postApi('/api/scenario', {
-      scenarioKey: session.user.id,
-      // TODO: nameをアカウント作成時に設定する。
-      userName: '0xxx1111',
-    })
+      const { key } = await postApi('/api/scenario', {
+        curriculumId: 'id',
+        ownerName: ownerName || session.user.name,
+        userName: session.user.name,
+      })
 
-    // このレスポンスでcookieにkeyが設定される
-    setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}/shell?key=${key}`)
-  }, [session])
+      // このレスポンスでcookieにkeyが設定される
+      setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}/shell?key=${key}`)
+    },
+    [session],
+  )
 
   return {
-    iframeSrc: url,
+    scenarioUrl: url,
     startScenario,
   }
 }
@@ -39,8 +42,10 @@ export const useDeleteScenario = (): {
     if (!session) {
       return
     }
+
     await deleteApi('/api/scenario', {
-      scenarioKey: session?.user.id,
+      curriculumId: 'id',
+      userName: session.user.name,
     })
   }, [session])
 

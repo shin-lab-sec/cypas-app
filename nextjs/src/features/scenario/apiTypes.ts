@@ -1,5 +1,6 @@
 export type ScenarioPostRequest = {
-  scenarioKey: string
+  curriculumId: string
+  ownerName: string
   userName: string
 }
 
@@ -8,7 +9,8 @@ export type ScenarioPostResponse = {
 }
 
 export type ScenarioDeleteRequest = {
-  scenarioKey: string
+  curriculumId: string
+  userName: string
 }
 
-export type ScenarioDeleteResponse = undefined
+export type ScenarioDeleteResponse = {}

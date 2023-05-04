@@ -25,8 +25,10 @@ const Dev: NextPage = () => {
   const [command, setCommand] = useState('')
   const [res, setRes] = useState<any>()
 
-  const { iframeSrc, startScenario } = useStartScenario()
+  const { scenarioUrl, startScenario } = useStartScenario()
   const { deleteScenario } = useDeleteScenario()
+
+  const [ownerName, setOwnerName] = useState('')
 
   if (status === 'unauthenticated' || !session) {
     return (
@@ -46,7 +48,8 @@ const Dev: NextPage = () => {
       >
         sign out
       </button>
-      <div>user: {session.user.email}</div>
+      <div>name: {session.user.name}</div>
+      <div>email: {session.user.email}</div>
 
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
       <div className="mx-10 mt-10 flex h-[80%] justify-evenly gap-10">
@@ -85,7 +88,7 @@ const Dev: NextPage = () => {
               className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
               onClick={async () => {
                 try {
-                  await startScenario()
+                  await startScenario(ownerName)
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -111,12 +114,17 @@ const Dev: NextPage = () => {
             </button>
           </div>
 
+          <input
+            className="mt-4 w-[70%]"
+            type="text"
+            value={ownerName}
+            placeholder={'オーナー名'}
+            onChange={e => setOwnerName(e.target.value)}
+          />
+
           <div className="mt-2 flex-1">
-            {/* {iframeSrc && (
-              <iframe src={iframeSrc} width="100%" height="100%"></iframe>
-            )} */}
-            <a href={iframeSrc} target="_blank" rel="noreferrer">
-              {iframeSrc}
+            <a href={scenarioUrl} target="_blank" rel="noreferrer">
+              {scenarioUrl}
             </a>
           </div>
         </div>
