@@ -1,7 +1,10 @@
 import '../styles/globals.css'
+import { MantineProvider, createEmotionCache } from '@mantine/core'
 import type { AppProps } from 'next/app'
 import Link from 'next/link'
 import { SessionProvider } from 'next-auth/react'
+
+const appendCache = createEmotionCache({ key: 'mantine', prepend: false })
 
 function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
   return (
@@ -13,8 +16,16 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
           </Link>
         </div>
       )}
-
-      <Component {...pageProps} />
+      <MantineProvider
+        withGlobalStyles
+        withNormalizeCSS
+        emotionCache={appendCache}
+        theme={{
+          colorScheme: 'dark',
+        }}
+      >
+        <Component {...pageProps} />
+      </MantineProvider>
     </SessionProvider>
   )
 }

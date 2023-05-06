@@ -1,3 +1,4 @@
+import { Button, Flex, Group, TextInput } from '@mantine/core'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
@@ -41,13 +42,10 @@ const Dev: NextPage = () => {
     )
   }
   return (
-    <div className="h-screen bg-gray-100">
-      <button
-        className="rounded-md border border-black p-1"
-        onClick={() => signOut()}
-      >
+    <div className="h-screen">
+      <Button size="sm" onClick={() => signOut()}>
         sign out
-      </button>
+      </Button>
       <div>name: {session.user.name}</div>
       <div>email: {session.user.email}</div>
 
@@ -55,37 +53,40 @@ const Dev: NextPage = () => {
       <div className="mx-10 mt-10 flex h-[80%] justify-evenly gap-10">
         <div className="w-[50%] max-w-xl">
           <h2>docker コマンド</h2>
-          <input
-            className="w-[70%]"
-            type="text"
-            value={command}
-            placeholder={'dockerの後の部分から入力'}
-            onChange={e => setCommand(e.target.value)}
-          />
-          <button
-            className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
-            onClick={async () => {
-              try {
-                const res = await postApi('/api/docker', {
-                  command,
-                })
-                setRes(res)
-              } catch (e) {
-                if (e instanceof ApiError) {
-                  setRes(e.statusText)
+          <Flex>
+            <TextInput
+              className="w-[70%]"
+              type="text"
+              value={command}
+              placeholder={'dockerの後の部分から入力'}
+              onChange={e => setCommand(e.target.value)}
+            />
+            <Button
+              onClick={async () => {
+                try {
+                  const res = await postApi('/api/docker', {
+                    command,
+                  })
+                  setRes(res)
+                } catch (e) {
+                  if (e instanceof ApiError) {
+                    setRes(e.statusText)
+                  }
                 }
-              }
-            }}
-          >
-            実行
-          </button>
-          <p>{JSON.stringify(res)}</p>
+              }}
+            >
+              実行
+            </Button>
+          </Flex>
+          <pre>
+            <code>{JSON.stringify(res, null, 2)}</code>
+          </pre>
         </div>
+
         <div className="flex w-[50%] max-w-xl flex-col">
-          <div className="flex">
-            <h2>ターミナル</h2>
-            <button
-              className="ml-4 rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
+          <h2>シナリオ</h2>
+          <Group>
+            <Button
               onClick={async () => {
                 try {
                   await startScenario(ownerName)
@@ -97,9 +98,8 @@ const Dev: NextPage = () => {
               }}
             >
               スタート
-            </button>
-            <button
-              className="rounded-md bg-blue-400 p-1 text-white hover:opacity-75"
+            </Button>
+            <Button
               onClick={async () => {
                 try {
                   await deleteScenario()
@@ -111,11 +111,11 @@ const Dev: NextPage = () => {
               }}
             >
               削除
-            </button>
-          </div>
+            </Button>
+          </Group>
 
-          <input
-            className="mt-4 w-[70%]"
+          <TextInput
+            mt="lg"
             type="text"
             value={ownerName}
             placeholder={'オーナー名'}
