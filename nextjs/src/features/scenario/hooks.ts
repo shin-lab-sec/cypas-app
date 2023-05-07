@@ -22,7 +22,7 @@ export const useStartScenario = (): {
       })
 
       // このレスポンスでcookieにkeyが設定される
-      setUrl(`${process.env.NEXT_PUBLIC_WETTYPROXY_URL}/shell?key=${key}`)
+      setUrl(`${process.env.NEXT_PUBLIC_USERAGENT_URL}/scenario?key=${key}`)
     },
     [session],
   )
