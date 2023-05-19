@@ -5,7 +5,7 @@ import {
   ScenarioPostRequest,
   ScenarioPostResponse,
 } from 'features/scenario/apiTypes'
-import { HttpMethod } from 'utils/fetchApi'
+import { HttpMethod } from 'foundation/utils/fetchApi'
 
 type Schema<
   T extends Record<

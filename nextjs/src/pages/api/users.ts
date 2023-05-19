@@ -1,5 +1,5 @@
-import prisma from 'libs/prisma'
-import { apiHandler } from 'utils/server/apiHandler'
+import prisma from 'foundation/libs/prisma'
+import { apiHandler } from 'foundation/utils/server/apiHandler'
 
 export default apiHandler('/api/users', {
   async post(req, res) {

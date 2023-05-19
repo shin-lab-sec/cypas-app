@@ -3,8 +3,8 @@ import type { GetServerSideProps, NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { useDeleteScenario, useStartScenario } from 'features/scenario/hooks'
-import { postApi } from 'utils/browser/apiClient'
-import { ApiError } from 'utils/fetchApi'
+import { postApi } from 'foundation/utils/browser/apiClient'
+import { ApiError } from 'foundation/utils/fetchApi'
 
 //開発用のページ。開発環境のみ見ることができる。
 export const getServerSideProps: GetServerSideProps = async () => {

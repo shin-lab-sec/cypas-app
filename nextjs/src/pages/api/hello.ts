@@ -1,4 +1,4 @@
-import { apiHandler } from 'utils/server/apiHandler'
+import { apiHandler } from 'foundation/utils/server/apiHandler'
 
 export default apiHandler('/api/hello', {
   async get(req, res) {

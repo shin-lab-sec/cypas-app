@@ -1,7 +1,7 @@
 import { ScenarioPostResponse } from 'features/scenario/apiTypes'
 import { getScenarioKey } from 'features/scenario/services'
-import { deleteApi, postApi } from 'utils/server/apiClient'
-import { apiHandler } from 'utils/server/apiHandler'
+import { deleteApi, postApi } from 'foundation/utils/server/apiClient'
+import { apiHandler } from 'foundation/utils/server/apiHandler'
 
 const curriculum: 'sample-curriculum' = 'sample-curriculum'
 const userAgent: 'kali-vdi' | 'kali-wetty' = 'kali-vdi'

@@ -1,5 +1,6 @@
 import type { NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
+import { DashBoardLayout } from 'layouts/DashBoardLayout'
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession()
@@ -15,15 +16,17 @@ const Home: NextPage = () => {
     )
   }
   return (
-    <div className="h-screen bg-gray-100">
-      <button
-        className="rounded-md border border-black p-1"
-        onClick={() => signOut()}
-      >
-        sign out
-      </button>
-      <div>user: {session.user.email}</div>
-    </div>
+    <DashBoardLayout>
+      <div>
+        <button
+          className="rounded-md border border-black p-1"
+          onClick={() => signOut()}
+        >
+          sign out
+        </button>
+        <div>user: {session.user.email}</div>
+      </div>
+    </DashBoardLayout>
   )
 }
 
