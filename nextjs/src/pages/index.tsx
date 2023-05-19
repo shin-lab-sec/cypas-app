@@ -1,32 +1,21 @@
+import { Button } from '@mantine/core'
 import type { NextPage } from 'next'
-import { useSession, signIn, signOut } from 'next-auth/react'
-import { DashBoardLayout } from 'layouts/DashBoardLayout'
+import { useRouter } from 'next/router'
+import { useSession, signIn } from 'next-auth/react'
 
 const Home: NextPage = () => {
-  const { data: session, status } = useSession()
+  const router = useRouter()
+  const { status } = useSession()
 
-  if (status === 'unauthenticated' || !session) {
-    return (
-      <button
-        className="rounded-md border border-black p-1"
-        onClick={() => signIn()}
-      >
-        sign in
-      </button>
-    )
+  if (status === 'authenticated') {
+    router.push('/dashboard')
+    return <></>
   }
+
   return (
-    <DashBoardLayout>
-      <div>
-        <button
-          className="rounded-md border border-black p-1"
-          onClick={() => signOut()}
-        >
-          sign out
-        </button>
-        <div>user: {session.user.email}</div>
-      </div>
-    </DashBoardLayout>
+    <div>
+      <Button onClick={() => signIn()}>sign in</Button>
+    </div>
   )
 }
 

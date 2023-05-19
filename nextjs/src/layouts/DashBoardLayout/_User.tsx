@@ -1,17 +1,18 @@
 import { Box, Text, rem, UnstyledButton, Group, Avatar } from '@mantine/core'
+import { User } from '@prisma/client'
 import { IconChevronRight } from '@tabler/icons-react'
 import React, { FC } from 'react'
 
-type _UserProps = {}
+type _UserProps = {
+  user: Pick<User, 'name' | 'email'>
+}
 
-export const _User: FC<_UserProps> = ({}) => {
+export const _User: FC<_UserProps> = ({ user }) => {
   return (
     <Box
       sx={t => ({
         paddingTop: t.spacing.sm,
-        borderTop: `${rem(1)} solid ${
-          t.colorScheme === 'dark' ? t.colors.dark[4] : t.colors.gray[2]
-        }`,
+        borderTop: `${rem(1)} solid ${t.colors.dark[4]}`,
       })}
     >
       <UnstyledButton
@@ -20,25 +21,24 @@ export const _User: FC<_UserProps> = ({}) => {
           width: '100%',
           padding: t.spacing.xs,
           borderRadius: t.radius.sm,
-          color: t.colorScheme === 'dark' ? t.colors.dark[0] : t.black,
+          color: t.colors.dark[0],
 
           '&:hover': {
-            backgroundColor:
-              t.colorScheme === 'dark' ? t.colors.dark[6] : t.colors.gray[0],
+            backgroundColor: t.colors.dark[6],
           },
         })}
       >
         <Group>
           <Avatar
-            src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixid=MXwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHw%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=255&q=80"
+            src={`https://www.gravatar.com/avatar/${user.name}/?d=retro`}
             radius="xl"
           />
           <Box sx={{ flex: 1 }}>
             <Text size="sm" weight={500}>
-              Amy Horsefighter
+              {user.name}
             </Text>
             <Text color="dimmed" size="xs">
-              ahorsefighter@gmail.com
+              {user.email}
             </Text>
           </Box>
 

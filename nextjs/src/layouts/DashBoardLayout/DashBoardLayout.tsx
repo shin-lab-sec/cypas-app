@@ -1,6 +1,7 @@
-import { AppShell, Navbar, Header } from '@mantine/core'
+import { AppShell, Navbar, Header, Button } from '@mantine/core'
+import { IconLogout } from '@tabler/icons-react'
+import { signOut, useSession } from 'next-auth/react'
 import React, { FC, ReactNode } from 'react'
-import { _Brand } from './_Brand'
 import { _MainLinks } from './_MainLinks'
 import { _User } from './_User'
 
@@ -9,19 +10,29 @@ type DashBoardLayoutProps = {
 }
 
 export const DashBoardLayout: FC<DashBoardLayoutProps> = ({ children }) => {
+  const { data: session, status } = useSession()
+
+  if (!session?.user) return null
+
   return (
     <AppShell
       padding="md"
       navbar={
         <Navbar p="xs" width={{ base: 300 }}>
-          <Navbar.Section mt="xs">
-            <_Brand />
-          </Navbar.Section>
           <Navbar.Section grow mt="md">
             <_MainLinks />
           </Navbar.Section>
           <Navbar.Section>
-            <_User />
+            <Button
+              leftIcon={<IconLogout size="1rem" />}
+              variant="light"
+              onClick={() => signOut({ callbackUrl: '/' })}
+            >
+              Logout
+            </Button>
+          </Navbar.Section>
+          <Navbar.Section>
+            <_User user={session.user} />
           </Navbar.Section>
         </Navbar>
       }
@@ -30,16 +41,13 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({ children }) => {
           {/* Header content */}
         </Header>
       }
-      styles={theme => ({
+      styles={t => ({
         main: {
-          backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[8]
-              : theme.colors.gray[0],
+          backgroundColor: t.colors.dark[8],
         },
       })}
     >
-      {/* Your application here */}
+      {children}
     </AppShell>
   )
 }

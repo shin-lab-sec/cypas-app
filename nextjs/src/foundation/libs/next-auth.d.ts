@@ -1,11 +1,14 @@
 // eslint-disable-next-line unused-imports/no-unused-imports
-import NextAuth, { DefaultSession } from 'next-auth'
+import NextAuth from 'next-auth'
 
 declare module 'next-auth' {
   interface Session {
+    expires: ISODateString
     user: {
       id: string
       name: string
-    } & DefaultSession['user']
+      email: string
+      image?: string | null
+    }
   }
 }
