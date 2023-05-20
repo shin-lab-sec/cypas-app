@@ -1,9 +1,9 @@
 import { UnstyledButton, Group, Text, ThemeIcon } from '@mantine/core'
 import {
   IconGitPullRequest,
-  IconAlertCircle,
   IconMessages,
-  IconDatabase,
+  IconSettings,
+  IconContainer,
 } from '@tabler/icons-react'
 import React, { FC } from 'react'
 
@@ -16,19 +16,16 @@ type _MainLinkProps = {
 const _MainLink: FC<_MainLinkProps> = ({ icon, color, label }) => {
   return (
     <UnstyledButton
-      sx={theme => ({
+      sx={t => ({
         display: 'block',
         width: '100%',
-        padding: theme.spacing.xs,
-        borderRadius: theme.radius.sm,
-        color:
-          theme.colorScheme === 'dark' ? theme.colors.dark[0] : theme.black,
+        padding: t.spacing.xs,
+        borderRadius: t.radius.sm,
+        color: t.colorScheme === 'dark' ? t.colors.dark[0] : t.black,
 
         '&:hover': {
           backgroundColor:
-            theme.colorScheme === 'dark'
-              ? theme.colors.dark[6]
-              : theme.colors.gray[0],
+            t.colorScheme === 'dark' ? t.colors.dark[6] : t.colors.gray[0],
         },
       })}
     >
@@ -47,15 +44,15 @@ const data = [
   {
     icon: <IconGitPullRequest size="1rem" />,
     color: 'blue',
-    label: 'Pull Requests',
+    label: 'コース一覧',
   },
   {
-    icon: <IconAlertCircle size="1rem" />,
+    icon: <IconContainer size="1rem" />,
     color: 'teal',
-    label: 'Open Issues',
+    label: '起動中のサンドボックス',
   },
-  { icon: <IconMessages size="1rem" />, color: 'violet', label: 'Discussions' },
-  { icon: <IconDatabase size="1rem" />, color: 'grape', label: 'Databases' },
+  { icon: <IconMessages size="1rem" />, color: 'violet', label: '学習記録' },
+  { icon: <IconSettings size="1rem" />, color: 'pink', label: '設定' },
 ]
 
 export const _MainLinks: FC = () => {
