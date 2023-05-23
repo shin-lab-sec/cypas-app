@@ -13,7 +13,7 @@ export default apiHandler('/api/scenario', {
       // req.body.curriculumIdを使ってcurriculum, userAgentをfetchしてくる
 
       const response = await postApi<ScenarioPostResponse>(
-        process.env.API_URL + '/scenario',
+        process.env.SMS_DOMAIN + '/scenario',
         {
           scenarioKey: getScenarioKey(curriculum, req.body.ownerName),
           userName: req.body.userName,
@@ -34,7 +34,7 @@ export default apiHandler('/api/scenario', {
       // TODO: CMSのAPI実装後修正する
       // req.body.curriculumIdを使ってcurriculum, userAgentをfetchしてくる
 
-      await deleteApi(process.env.API_URL + '/scenario', {
+      await deleteApi(process.env.SMS_DOMAIN + '/scenario', {
         scenarioKey: getScenarioKey(curriculum, req.query.userName),
       })
 

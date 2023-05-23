@@ -5,7 +5,7 @@ export default apiHandler('/api/docker', {
   async post(req, res) {
     try {
       const response = await postApi<object>(
-        process.env.API_URL + '/docker',
+        process.env.SMS_DOMAIN + '/docker',
         req.body,
       )
       return res.json(response)
