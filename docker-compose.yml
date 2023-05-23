@@ -12,9 +12,9 @@ services:
     environment:
       - WATCHPACK_POLLING=true
     extra_hosts:
-      # コンテナ内部のdnsではバックエンド側のドメインを名前解決できないため
+      # コンテナ内部のdnsではAPI routesでバックエンド側のドメインを名前解決できないため
       # 本当はホスト側のlocalhostに接続したいが、localhostの挙動が特殊なためルーターを経由して外からのアクセスと同等にしている
-      - 'api.cyber-range.test:${HOST_IP}'
+      - 'sms.cypas.sec:${HOST_IP}'
     ports:
       - 3000:3000
     depends_on:
