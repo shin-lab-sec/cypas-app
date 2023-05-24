@@ -22,12 +22,16 @@ git clone https://github.com/shin-lab-sec/cyber-range-client.git
 
 .env.example を参考に.env ファイルを作成する
 
-### step3 　コンテナ起動
+### step3 cypas-local-tls-proxy 起動
+
+起動方法は[cypas-local-tls-proxy](https://github.com/shin-lab-sec/cypas-local-tls-proxy)を参照
+
+### step4 　コンテナ起動
 
 ```
 docker compose up
 ```
 
-### step4 　コンテナ接続
+### step5 　コンテナ接続
 
 コンテナ起動後は vscode で nextjs コンテナに接続（基本作業はコンテナ内）
