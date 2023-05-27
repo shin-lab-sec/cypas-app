@@ -126,6 +126,13 @@ const Dev: NextPage = () => {
             <a href={scenarioUrl} target="_blank" rel="noreferrer">
               {scenarioUrl}
             </a>
+            <iframe
+              className="mt-2 h-80 rounded-md bg-white"
+              title="terminal"
+              height={'100%'}
+              width={'100%'}
+              src={scenarioUrl}
+            ></iframe>
           </div>
         </div>
       </div>
