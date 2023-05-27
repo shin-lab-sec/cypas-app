@@ -3,7 +3,7 @@ type Route = {
   href: `/${string}`
 }
 
-const routes = {
+export const routes = {
   '/home': {
     title: 'ホーム',
     href: '/home',
@@ -24,6 +24,10 @@ const routes = {
     title: 'カリキュラムタイトル',
     href: `/curriculum/${id}`,
   }),
+  '/learnig-log': {
+    title: '学習記録',
+    href: '/learnig-log',
+  },
 } as const
 // エラーになるので一旦コメントアウト
 //  satisfies Record<

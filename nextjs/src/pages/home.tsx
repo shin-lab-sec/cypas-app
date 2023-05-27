@@ -1,4 +1,4 @@
-import { Group, Button } from '@mantine/core'
+import { Group, Button, Title } from '@mantine/core'
 import type { NextPage } from 'next'
 import { ApiError } from 'next/dist/server/api-utils'
 import React from 'react'
@@ -18,45 +18,44 @@ const Home: NextPage = () => {
         getRoute('/courses/:id', { id: 'id', title: 'XSS初級' }),
       ]}
     >
-      <div className="mt-[800px] flex flex-col">
-        <h2>シナリオ</h2>
-        <Group>
-          <Button
-            onClick={async () => {
-              try {
-                await startScenario()
-              } catch (e) {
-                if (e instanceof ApiError) {
-                  console.log(e)
-                }
+      <Title size={'h3'}>シナリオ</Title>
+      <Group mt={'md'}>
+        <Button
+          onClick={async () => {
+            try {
+              await startScenario()
+            } catch (e) {
+              if (e instanceof ApiError) {
+                console.log(e)
               }
-            }}
-          >
-            スタート
-          </Button>
-          <Button
-            onClick={async () => {
-              try {
-                await deleteScenario()
-              } catch (e) {
-                if (e instanceof ApiError) {
-                  console.log(e)
-                }
+            }
+          }}
+        >
+          スタート
+        </Button>
+        <Button
+          onClick={async () => {
+            try {
+              await deleteScenario()
+            } catch (e) {
+              if (e instanceof ApiError) {
+                console.log(e)
               }
-            }}
-          >
-            削除
-          </Button>
-        </Group>
+            }
+          }}
+        >
+          削除
+        </Button>
+      </Group>
 
+      {/* <div>
         <iframe
-          className="mt-2 h-80 rounded-md"
           title="terminal"
           height={'100%'}
           width={'100%'}
           src={scenarioUrl}
         ></iframe>
-      </div>
+      </div> */}
     </DashBoardLayout>
   )
 }

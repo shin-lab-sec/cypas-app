@@ -11,17 +11,19 @@ import {
   NAVBAR_WIDTH,
   NAVBAR_WIDTH_NARROWED,
 } from './DashBoardLayout'
-import { _MainLinks } from './_MainLinks'
+import { _NavLinks } from './_NavLinks'
 import { _User } from './_User'
 import { SessionUser } from 'features/auth/types'
 
 type _NavbarProps = {
+  currentPageTitle: string
   user: Pick<SessionUser, 'name' | 'email'>
   openNavbar: boolean
   onToggleNavber: () => void
 }
 
 export const _Navbar: FC<_NavbarProps> = ({
+  currentPageTitle,
   user,
   openNavbar,
   onToggleNavber,
@@ -48,7 +50,7 @@ export const _Navbar: FC<_NavbarProps> = ({
       </Navbar.Section>
 
       <Navbar.Section grow mt={'xs'}>
-        <_MainLinks compact={!openNavbar} />
+        <_NavLinks currentPageTitle={currentPageTitle} compact={!openNavbar} />
       </Navbar.Section>
 
       {openNavbar ? (
