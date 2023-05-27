@@ -1,4 +1,3 @@
-import 'foundation/styles/globals.css'
 import { MantineProvider, createEmotionCache } from '@mantine/core'
 import type { AppProps } from 'next/app'
 import { SessionProvider } from 'next-auth/react'
@@ -13,7 +12,11 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         withNormalizeCSS
         emotionCache={appendCache}
         theme={{
+          primaryColor: 'indigo',
           colorScheme: 'dark',
+          fontFamily: 'Noto Sans JP,sans-serif',
+          fontFamilyMonospace: 'Monaco, Courier, monospace',
+          headings: { fontFamily: 'Noto Sans JP,sans-serif' },
         }}
       >
         <Component {...pageProps} />
