@@ -8,7 +8,7 @@ const Home: NextPage = () => {
   const { status } = useSession()
 
   if (status === 'authenticated') {
-    router.push('/dashboard')
+    router.push('/home')
     return <></>
   }
 

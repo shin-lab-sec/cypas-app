@@ -1,61 +1,90 @@
-import { UnstyledButton, Group, Text, ThemeIcon } from '@mantine/core'
+import { UnstyledButton, Text, ThemeIcon, Flex } from '@mantine/core'
 import {
-  IconGitPullRequest,
-  IconMessages,
-  IconSettings,
-  IconContainer,
+  Icon3dCubeSphere,
+  IconChartHistogram,
+  IconHome,
+  IconListDetails,
 } from '@tabler/icons-react'
 import React, { FC } from 'react'
 
 type _MainLinkProps = {
-  icon: React.ReactNode
+  compact: boolean
+  icon: (size: string) => React.ReactNode
   color: string
   label: string
 }
 
-const _MainLink: FC<_MainLinkProps> = ({ icon, color, label }) => {
+const _MainLink: FC<_MainLinkProps> = ({ compact, icon, color, label }) => {
   return (
     <UnstyledButton
       sx={t => ({
-        display: 'block',
+        display: 'flex',
         width: '100%',
         padding: t.spacing.xs,
         borderRadius: t.radius.sm,
-        color: t.colorScheme === 'dark' ? t.colors.dark[0] : t.black,
+        color: t.colors.dark[0],
 
         '&:hover': {
-          backgroundColor:
-            t.colorScheme === 'dark' ? t.colors.dark[6] : t.colors.gray[0],
+          backgroundColor: t.colors.dark[4],
         },
       })}
     >
-      <Group>
-        <ThemeIcon color={color} variant="light">
-          {icon}
+      <Flex
+        w={compact ? '38px' : undefined}
+        gap={'md'}
+        wrap={'nowrap'}
+        justify={'center'}
+        align={'center'}
+      >
+        <ThemeIcon color={color} variant="filled" size={compact ? 'lg' : 'md'}>
+          {icon(compact ? '1.3rem' : '1rem')}
         </ThemeIcon>
 
-        <Text size="sm">{label}</Text>
-      </Group>
+        {compact ? null : (
+          <Text size="sm" sx={{ whiteSpace: 'nowrap' }}>
+            {label}
+          </Text>
+        )}
+      </Flex>
     </UnstyledButton>
   )
 }
 
 const data = [
   {
-    icon: <IconGitPullRequest size="1rem" />,
-    color: 'blue',
-    label: 'コース一覧',
+    icon: (size: string) => <IconHome size={size} />,
+    color: 'yellow',
+    label: 'ホーム',
   },
   {
-    icon: <IconContainer size="1rem" />,
+    icon: (size: string) => <Icon3dCubeSphere size={size} />,
     color: 'teal',
     label: '起動中のサンドボックス',
   },
-  { icon: <IconMessages size="1rem" />, color: 'violet', label: '学習記録' },
-  { icon: <IconSettings size="1rem" />, color: 'pink', label: '設定' },
+  {
+    icon: (size: string) => <IconListDetails size={size} />,
+    color: 'blue',
+    label: 'コース',
+  },
+  // {
+  //   icon: (size: string) => <IconGitPullRequest size={size} />,
+  //   color: 'orange',
+  //   label: 'シナリオ一覧',
+  // },
+  {
+    icon: (size: string) => <IconChartHistogram size={size} />,
+    color: 'violet',
+    label: '学習記録',
+  },
 ]
 
-export const _MainLinks: FC = () => {
-  const links = data.map(link => <_MainLink {...link} key={link.label} />)
+export type _MainLinksProps = {
+  compact: boolean
+}
+
+export const _MainLinks: FC<_MainLinksProps> = ({ compact }) => {
+  const links = data.map(link => (
+    <_MainLink {...link} key={link.label} compact={compact} />
+  ))
   return <div>{links}</div>
 }

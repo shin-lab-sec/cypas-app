@@ -1,13 +1,14 @@
 import { Box, Text, rem, UnstyledButton, Group, Avatar } from '@mantine/core'
-import { User } from '@prisma/client'
 import { IconChevronRight } from '@tabler/icons-react'
 import React, { FC } from 'react'
+import { SessionUser } from 'features/auth/types'
 
 type _UserProps = {
-  user: Pick<User, 'name' | 'email'>
+  compact: boolean
+  user: Pick<SessionUser, 'name' | 'email'>
 }
 
-export const _User: FC<_UserProps> = ({ user }) => {
+export const _User: FC<_UserProps> = ({ user, compact }) => {
   return (
     <Box
       sx={t => ({
@@ -24,25 +25,28 @@ export const _User: FC<_UserProps> = ({ user }) => {
           color: t.colors.dark[0],
 
           '&:hover': {
-            backgroundColor: t.colors.dark[6],
+            backgroundColor: t.colors.dark[4],
           },
         })}
       >
-        <Group>
+        <Group noWrap w={compact ? '38px' : undefined} h={'48px'}>
           <Avatar
             src={`https://www.gravatar.com/avatar/${user.name}/?d=retro`}
             radius="xl"
           />
-          <Box sx={{ flex: 1 }}>
-            <Text size="sm" weight={500}>
-              {user.name}
-            </Text>
-            <Text color="dimmed" size="xs">
-              {user.email}
-            </Text>
-          </Box>
-
-          <IconChevronRight size={rem(18)} />
+          {compact ? null : (
+            <>
+              <Box sx={{ flex: 1 }}>
+                <Text size="sm" weight={500}>
+                  {user.name}
+                </Text>
+                <Text color="dimmed" size="xs">
+                  {user.email}
+                </Text>
+              </Box>
+              <IconChevronRight size={rem(18)} />
+            </>
+          )}
         </Group>
       </UnstyledButton>
     </Box>
