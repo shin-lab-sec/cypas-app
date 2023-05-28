@@ -1,10 +1,12 @@
 import { Anchor, AppShell, Breadcrumbs, Center, Loader } from '@mantine/core'
+import { useLocalStorage } from '@mantine/hooks'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
-import React, { FC, ReactNode, useState } from 'react'
+import React, { FC, ReactNode } from 'react'
 import { _Header } from './_Header'
 import { _Navbar } from './_Navbar'
 import { getRoute } from 'foundation/routes'
+import { useAppState } from 'foundation/appState'
 
 export const HEADER_HEIGHT = 70
 export const NAVBAR_WIDTH = 260
@@ -27,7 +29,7 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
   const currentNavKey = NAVLINK_KEYS.find(key => router.asPath.startsWith(key))
   const currentNavTitle = currentNavKey && getRoute(currentNavKey).title
 
-  const [openNavbar, setOpenNavbar] = useState(true)
+  const [openNavbar, setOpenNavbar] = useAppState('openNavbar')
 
   if (!session?.user)
     return (
