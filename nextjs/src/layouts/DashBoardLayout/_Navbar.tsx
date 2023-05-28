@@ -16,14 +16,14 @@ import { _User } from './_User'
 import { SessionUser } from 'features/auth/types'
 
 type _NavbarProps = {
-  currentPageTitle: string
+  currentNavTitle: string
   user: Pick<SessionUser, 'name' | 'email'>
   openNavbar: boolean
   onToggleNavber: () => void
 }
 
 export const _Navbar: FC<_NavbarProps> = ({
-  currentPageTitle,
+  currentNavTitle,
   user,
   openNavbar,
   onToggleNavber,
@@ -50,7 +50,7 @@ export const _Navbar: FC<_NavbarProps> = ({
       </Navbar.Section>
 
       <Navbar.Section grow mt={'xs'}>
-        <_NavLinks currentPageTitle={currentPageTitle} compact={!openNavbar} />
+        <_NavLinks currentNavTitle={currentNavTitle} compact={!openNavbar} />
       </Navbar.Section>
 
       {openNavbar ? (

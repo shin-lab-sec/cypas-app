@@ -4,11 +4,13 @@ import { useSession } from 'next-auth/react'
 import React, { FC, ReactNode, useState } from 'react'
 import { _Header } from './_Header'
 import { _Navbar } from './_Navbar'
-import { getRoute, routes } from 'foundation/routes'
+import { getRoute } from 'foundation/routes'
 
 export const HEADER_HEIGHT = 70
 export const NAVBAR_WIDTH = 260
 export const NAVBAR_WIDTH_NARROWED = 80
+
+const NAVLINK_KEYS = ['/home', '/sandbox', '/courses', '/learnig-log'] as const
 
 type DashBoardLayoutProps = {
   breadcrumbsList: { title: string; href: string }[]
@@ -22,8 +24,8 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
   const router = useRouter()
   const { data: session } = useSession()
 
-  const currentPageTitle = getRoute(router.asPath as keyof typeof routes).title
-  const [currentRoute, setCurrentRoute] = useState<keyof typeof routes>('/home')
+  const currentNavKey = NAVLINK_KEYS.find(key => router.asPath.startsWith(key))
+  const currentNavTitle = currentNavKey && getRoute(currentNavKey).title
 
   const [openNavbar, setOpenNavbar] = useState(true)
 
@@ -45,20 +47,23 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
       header={<_Header user={session.user} />}
       navbar={
         <_Navbar
-          currentPageTitle={currentPageTitle}
+          currentNavTitle={currentNavTitle || ''}
           user={session.user}
           openNavbar={openNavbar}
           onToggleNavber={() => setOpenNavbar(!openNavbar)}
         />
       }
     >
-      <Breadcrumbs mb={'md'}>
-        {breadcrumbsList.map(item => (
-          <Anchor href={item.href} key={item.href} c={'gray.6'}>
-            {item.title}
-          </Anchor>
-        ))}
-      </Breadcrumbs>
+      {breadcrumbsList.length > 0 ? (
+        <Breadcrumbs mb={'md'}>
+          {breadcrumbsList.map(item => (
+            <Anchor href={item.href} key={item.href} c={'gray.6'}>
+              {item.title}
+            </Anchor>
+          ))}
+        </Breadcrumbs>
+      ) : null}
+
       {children}
     </AppShell>
   )

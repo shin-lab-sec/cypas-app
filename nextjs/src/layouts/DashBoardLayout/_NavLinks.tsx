@@ -42,18 +42,15 @@ const links: {
 ]
 
 export type _NavLinksProps = {
-  currentPageTitle: string
+  currentNavTitle: string
   compact: boolean
 }
 
-export const _NavLinks: FC<_NavLinksProps> = ({
-  currentPageTitle,
-  compact,
-}) => {
+export const _NavLinks: FC<_NavLinksProps> = ({ currentNavTitle, compact }) => {
   return (
     <div>
       {links.map(link => {
-        const active = currentPageTitle === link.label
+        const active = currentNavTitle === link.label
         return (
           <Box
             component={Link}
