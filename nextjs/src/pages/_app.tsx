@@ -12,7 +12,7 @@ function MyApp({ Component, pageProps: { session, ...pageProps } }: AppProps) {
         withNormalizeCSS
         emotionCache={appendCache}
         theme={{
-          primaryColor: 'indigo',
+          primaryColor: 'teal',
           colorScheme: 'dark',
           fontFamily: 'Noto Sans JP,sans-serif',
           fontFamilyMonospace: 'Monaco, Courier, monospace',

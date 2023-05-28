@@ -34,6 +34,7 @@ const Home: NextPage = () => {
           スタート
         </Button>
         <Button
+          variant="outline"
           onClick={async () => {
             try {
               await deleteScenario()

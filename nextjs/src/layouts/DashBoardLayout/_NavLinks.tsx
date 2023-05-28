@@ -52,50 +52,54 @@ export const _NavLinks: FC<_NavLinksProps> = ({
 }) => {
   return (
     <div>
-      {links.map(link => (
-        <Box
-          component={Link}
-          key={link.href}
-          href={link.href}
-          sx={t => ({
-            display: 'flex',
-            width: '100%',
-            padding: t.spacing.xs,
-            borderRadius: t.radius.sm,
-            color: t.colors.dark[0],
-            textDecoration: 'none',
-            ...(currentPageTitle == link.label && {
-              backgroundColor: t.colors.dark[4],
-            }),
+      {links.map(link => {
+        const active = currentPageTitle === link.label
+        return (
+          <Box
+            component={Link}
+            key={link.href}
+            href={link.href}
+            sx={t => ({
+              display: 'flex',
+              width: '100%',
+              padding: t.spacing.xs,
+              borderRadius: t.radius.sm,
+              color: t.colors.dark[0],
+              textDecoration: 'none',
 
-            '&:hover': {
-              backgroundColor: t.colors.dark[4],
-            },
-          })}
-        >
-          <Flex
-            w={compact ? '38px' : undefined}
-            gap={'md'}
-            wrap={'nowrap'}
-            justify={'center'}
-            align={'center'}
+              '&:hover': {
+                backgroundColor: t.colors.dark[4],
+              },
+            })}
           >
-            <ThemeIcon
-              color={link.color}
-              variant="filled"
-              size={compact ? 'lg' : 'md'}
+            <Flex
+              w={compact ? '38px' : undefined}
+              gap={'sm'}
+              wrap={'nowrap'}
+              justify={'center'}
+              align={'center'}
             >
-              {link.icon(compact ? '1.3rem' : '1rem')}
-            </ThemeIcon>
+              <ThemeIcon
+                color={active ? 'orange.2' : 'gray.1'}
+                variant="light"
+                size={compact ? 'lg' : 'md'}
+              >
+                {link.icon(compact ? '1.3rem' : '1rem')}
+              </ThemeIcon>
 
-            {compact ? null : (
-              <Text size="sm" sx={{ whiteSpace: 'nowrap' }}>
-                {link.label}
-              </Text>
-            )}
-          </Flex>
-        </Box>
-      ))}
+              {compact ? null : (
+                <Text
+                  size="sm"
+                  sx={{ whiteSpace: 'nowrap' }}
+                  c={active ? 'orange.3' : 'gray.4'}
+                >
+                  {link.label}
+                </Text>
+              )}
+            </Flex>
+          </Box>
+        )
+      })}
     </div>
   )
 }

@@ -42,9 +42,9 @@ export const _Navbar: FC<_NavbarProps> = ({
       <Navbar.Section>
         <ActionIcon onClick={onToggleNavber} ml={'sm'}>
           {openNavbar ? (
-            <IconChevronsLeft size="1.125rem" />
+            <IconChevronsLeft color="#C1C2C5" size="1.125rem" />
           ) : (
-            <IconChevronsRight size="1.125rem" />
+            <IconChevronsRight color="#C1C2C5" size="1.125rem" />
           )}
         </ActionIcon>
       </Navbar.Section>
@@ -57,7 +57,7 @@ export const _Navbar: FC<_NavbarProps> = ({
         <Navbar.Section p={'xs'}>
           <Button
             leftIcon={<IconLogout size="1rem" />}
-            variant="light"
+            variant="outline"
             onClick={() => signOut({ callbackUrl: '/' })}
           >
             Logout

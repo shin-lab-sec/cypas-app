@@ -12,7 +12,7 @@ export const _Header: FC<_HeaderProps> = ({ user }) => {
   return (
     <Header height={HEADER_HEIGHT} p="xs">
       <Flex h={'100%'} justify={'space-between'} align={'center'}>
-        <Text ml={'md'} fz={40} fw={'bolder'} color="green">
+        <Text ml={'md'} fz={40} fw={'bolder'} color="teal.5">
           Cypas
         </Text>
         <Group>
