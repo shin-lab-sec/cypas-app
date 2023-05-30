@@ -2,6 +2,14 @@ import useSWR, { KeyedMutator } from 'swr'
 
 type AppState = {
   openNavbar: boolean
+  sandbox: {
+    status: 'active' | 'inactive' | 'creating'
+    userName: string
+    ownerName: string
+    courseId: string
+    curriculumId: string
+    userAgentType: 'vdi' | 'terminal'
+  }
 }
 
 const initState: AppState = {
