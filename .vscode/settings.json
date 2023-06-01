@@ -8,5 +8,6 @@
   "editor.quickSuggestions": {
     "strings": true
   },
-  "WillLuke.nextjs.hasPrompted": true
+  "WillLuke.nextjs.hasPrompted": true,
+  "typescript.preferences.importModuleSpecifier": "non-relative"
 }
