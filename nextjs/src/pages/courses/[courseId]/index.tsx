@@ -6,7 +6,7 @@ import React from 'react'
 import { getRoute } from 'foundation/routes'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
 
-const fetchCouse = (id: string) => ({
+const fetchCourse = (id: string) => ({
   id: 'sample-id',
   title: 'XSS初級',
   description:
@@ -33,7 +33,7 @@ const fetchCouse = (id: string) => ({
 
 const Course: NextPage = () => {
   const router = useRouter()
-  const course = fetchCouse(router.query.id as string)
+  const course = fetchCourse(router.query.courseId as string)
 
   return (
     <DashBoardLayout
@@ -49,9 +49,7 @@ const Course: NextPage = () => {
       <Stack mt={'lg'}>
         {course.curriculums.map(curriculum => (
           <Box
-            component={Link}
             key={curriculum.id}
-            href={''}
             sx={t => ({
               display: 'flex',
               justifyContent: 'space-between',
@@ -62,17 +60,18 @@ const Course: NextPage = () => {
               color: t.colors.dark[0],
               textDecoration: 'none',
               border: `1px solid ${t.colors.gray[5]}`,
-
-              '&:hover': {
-                backgroundColor: t.colors.dark[4],
-              },
             })}
           >
             <Text size="md" sx={{ whiteSpace: 'nowrap' }} c={'gray.4'}>
               {curriculum.title}
             </Text>
 
-            <Button>体験する</Button>
+            <Button
+              component={Link}
+              href={`/courses/${course.id}/sections/${'section-id'}`}
+            >
+              体験する
+            </Button>
           </Box>
         ))}
       </Stack>

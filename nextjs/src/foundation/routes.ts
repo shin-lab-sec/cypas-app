@@ -8,9 +8,9 @@ export const routes = {
     title: 'ホーム',
     href: '/home',
   },
-  '/sandbox': {
-    title: '起動中のサンドボックス',
-    href: '/sandbox',
+  '/sandbox/search': {
+    title: 'サンドボックス検索',
+    href: '/sandbox/search',
   },
   '/courses': {
     title: 'コース',
@@ -20,9 +20,9 @@ export const routes = {
     title,
     href: `/courses/${id}`,
   }),
-  '/curriculum/:id': ({ id }) => ({
-    title: 'カリキュラムタイトル',
-    href: `/curriculum/${id}`,
+  '/courses/:cid/sections/:sid': ({ cid, title, sid }) => ({
+    title,
+    href: `/courses/${cid}/sections/${sid}`,
   }),
   '/learnig-log': {
     title: '学習記録',
