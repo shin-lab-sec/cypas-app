@@ -1,19 +1,14 @@
 import useSWR, { KeyedMutator } from 'swr'
+import { Sandbox } from 'features/sandbox/types'
 
 type AppState = {
   openNavbar: boolean
-  sandbox: {
-    status: 'active' | 'inactive' | 'creating'
-    userName: string
-    ownerName: string
-    courseId: string
-    curriculumId: string
-    userAgentType: 'vdi' | 'terminal'
-  }
+  sandbox: Sandbox
 }
 
 const initState: AppState = {
   openNavbar: true,
+  sandbox: { status: 'inactive' },
 }
 
 export const useAppState = <Path extends keyof AppState>(
