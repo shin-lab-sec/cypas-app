@@ -1,28 +1,53 @@
-import { Avatar, Flex, Group, Header, Text } from '@mantine/core'
+import {
+  Avatar,
+  Box,
+  Flex,
+  Group,
+  Header,
+  Text,
+  UnstyledButton,
+  rem,
+} from '@mantine/core'
 import { IconChevronDown } from '@tabler/icons-react'
 import React, { FC } from 'react'
 import { HEADER_HEIGHT } from './DashBoardLayout'
 import { SessionUser } from 'features/auth/types'
+import { _User } from 'layouts/DashBoardLayout/_User'
 
 type _HeaderProps = {
-  user: Pick<SessionUser, 'name'>
+  user: Pick<SessionUser, 'name' | 'email'>
 }
 
 export const _Header: FC<_HeaderProps> = ({ user }) => {
+  const compact = false
   return (
     <Header height={HEADER_HEIGHT} p="xs">
       <Flex h={'100%'} justify={'space-between'} align={'center'}>
         <Text ml={'md'} fz={40} fw={'bolder'} color="teal.5">
           Cypas
         </Text>
-        <Group>
-          <Avatar
-            src={`https://www.gravatar.com/avatar/${user.name}/?d=retro`}
-            radius="xl"
-          />
-          <Text>{user.name}</Text>
-          <IconChevronDown size={18} />
-        </Group>
+
+        <UnstyledButton
+          sx={t => ({
+            display: 'block',
+            padding: t.spacing.xs,
+            borderRadius: t.radius.sm,
+            color: t.colors.dark[0],
+
+            '&:hover': {
+              backgroundColor: t.colors.dark[4],
+            },
+          })}
+        >
+          <Group spacing={'xs'}>
+            <Avatar
+              src={`https://www.gravatar.com/avatar/${user.name}/?d=retro`}
+              radius="xl"
+            />
+
+            <IconChevronDown size={rem(18)} />
+          </Group>
+        </UnstyledButton>
       </Flex>
     </Header>
   )

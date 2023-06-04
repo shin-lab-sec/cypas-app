@@ -1,10 +1,9 @@
-import { Navbar, Button, ActionIcon } from '@mantine/core'
+import { Navbar, ActionIcon, Box } from '@mantine/core'
 import {
+  Icon3dCubeSphereOff,
   IconChevronsLeft,
   IconChevronsRight,
-  IconLogout,
 } from '@tabler/icons-react'
-import { signOut } from 'next-auth/react'
 import React, { FC } from 'react'
 import {
   HEADER_HEIGHT,
@@ -53,7 +52,7 @@ export const _Navbar: FC<_NavbarProps> = ({
         <_NavLinks currentNavTitle={currentNavTitle} compact={!openNavbar} />
       </Navbar.Section>
 
-      {openNavbar ? (
+      {/* {openNavbar ? (
         <Navbar.Section p={'xs'}>
           <Button
             leftIcon={<IconLogout size="1rem" />}
@@ -63,11 +62,7 @@ export const _Navbar: FC<_NavbarProps> = ({
             Logout
           </Button>
         </Navbar.Section>
-      ) : null}
-
-      <Navbar.Section>
-        <_User user={user} compact={!openNavbar} />
-      </Navbar.Section>
+      ) : null} */}
     </Navbar>
   )
 }

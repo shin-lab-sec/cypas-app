@@ -7,12 +7,18 @@ import { _Header } from './_Header'
 import { _Navbar } from './_Navbar'
 import { getRoute } from 'foundation/routes'
 import { useAppState } from 'foundation/appState'
+import { SandBox } from 'features/sandbox/components/SandBox'
 
 export const HEADER_HEIGHT = 70
 export const NAVBAR_WIDTH = 260
 export const NAVBAR_WIDTH_NARROWED = 80
 
-const NAVLINK_KEYS = ['/home', '/sandbox', '/courses', '/learnig-log'] as const
+const NAVLINK_KEYS = [
+  '/home',
+  '/sandbox/search',
+  '/courses',
+  '/learnig-log',
+] as const
 
 type DashBoardLayoutProps = {
   breadcrumbsList: { title: string; href: string }[]
@@ -67,6 +73,8 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
       ) : null}
 
       {children}
+
+      <SandBox />
     </AppShell>
   )
 }

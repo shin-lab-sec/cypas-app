@@ -22,16 +22,16 @@ const links: {
     href: getRoute('/home').href,
   },
   {
-    icon: size => <Icon3dCubeSphere size={size} />,
-    color: 'teal',
-    label: getRoute('/sandbox').title,
-    href: getRoute('/sandbox').href,
-  },
-  {
     icon: size => <IconListDetails size={size} />,
     color: 'blue',
     label: getRoute('/courses').title,
     href: getRoute('/courses').href,
+  },
+  {
+    icon: size => <Icon3dCubeSphere size={size} />,
+    color: 'teal',
+    label: getRoute('/sandbox/search').title,
+    href: getRoute('/sandbox/search').href,
   },
   {
     icon: size => <IconChartHistogram size={size} />,
