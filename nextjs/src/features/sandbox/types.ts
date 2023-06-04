@@ -4,7 +4,7 @@ export type Sandbox =
       userName: string
       ownerName: string
       courseId: string
-      curriculumId: string
+      sectionId: string
       userAgentType: 'vdi' | 'terminal'
     }
   | { status: 'inactive' }

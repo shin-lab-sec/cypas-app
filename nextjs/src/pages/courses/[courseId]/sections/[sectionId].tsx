@@ -1,13 +1,12 @@
-import { Title, Text, Box, Stack, Button } from '@mantine/core'
+import { Title, Text } from '@mantine/core'
 import type { NextPage } from 'next'
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 import React from 'react'
-import { getRoute } from '../../../../foundation/routes'
+import { getRoute } from 'foundation/routes'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
 
 const fetchSection = (id: string) => ({
-  type: 'scenario',
+  type: 'sandbox',
   id: 'section-id',
   courseId: 'course-id',
   title: 'まずは体験してみよう',

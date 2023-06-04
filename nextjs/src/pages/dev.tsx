@@ -2,7 +2,7 @@ import { Button, Flex, Group, TextInput } from '@mantine/core'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
-import { useDeleteScenario, useStartScenario } from 'features/scenario/hooks'
+import { useStartSandbox, useDeleteSandbox } from 'features/sandbox/hooks'
 import { postApi } from 'foundation/utils/browser/apiClient'
 import { ApiError } from 'foundation/utils/fetchApi'
 
@@ -26,8 +26,8 @@ const Dev: NextPage = () => {
   const [command, setCommand] = useState('')
   const [res, setRes] = useState<any>()
 
-  const { scenarioUrl, startScenario } = useStartScenario()
-  const { deleteScenario } = useDeleteScenario()
+  const { sandboxUrl, startSandbox } = useStartSandbox()
+  const { deleteSandbox } = useDeleteSandbox()
 
   const [ownerName, setOwnerName] = useState('')
 
@@ -84,12 +84,12 @@ const Dev: NextPage = () => {
         </div>
 
         <div className="flex w-[50%] max-w-xl flex-col">
-          <h2>シナリオ</h2>
+          <h2>サンドボックス</h2>
           <Group>
             <Button
               onClick={async () => {
                 try {
-                  await startScenario(ownerName)
+                  await startSandbox(ownerName)
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -102,7 +102,7 @@ const Dev: NextPage = () => {
             <Button
               onClick={async () => {
                 try {
-                  await deleteScenario()
+                  await deleteSandbox()
                 } catch (e) {
                   if (e instanceof ApiError) {
                     console.log(e)
@@ -123,15 +123,15 @@ const Dev: NextPage = () => {
           />
 
           <div className="mt-2 flex-1">
-            <a href={scenarioUrl} target="_blank" rel="noreferrer">
-              {scenarioUrl}
+            <a href={sandboxUrl} target="_blank" rel="noreferrer">
+              {sandboxUrl}
             </a>
             <iframe
               className="mt-2 h-80 rounded-md bg-white"
               title="terminal"
               height={'100%'}
               width={'100%'}
-              src={scenarioUrl}
+              src={sandboxUrl}
             ></iframe>
           </div>
         </div>

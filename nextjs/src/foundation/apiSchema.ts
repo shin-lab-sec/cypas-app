@@ -1,10 +1,10 @@
 import { Prisma } from '@prisma/client'
 import {
-  ScenarioDeleteRequest,
-  ScenarioDeleteResponse,
-  ScenarioPostRequest,
-  ScenarioPostResponse,
-} from 'features/scenario/apiTypes'
+  SandboxDeleteRequest,
+  SandboxDeleteResponse,
+  SandboxPostRequest,
+  SandboxPostResponse,
+} from 'features/sandbox/apiTypes'
 import { HttpMethod } from 'foundation/utils/fetchApi'
 
 type Schema<
@@ -24,10 +24,10 @@ export type Api = Schema<{
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
     '/api/docker': [{ command: string }, any]
-    '/api/scenario': [ScenarioPostRequest, ScenarioPostResponse]
+    '/api/sandbox': [SandboxPostRequest, SandboxPostResponse]
   }
   PUT: {}
   DELETE: {
-    '/api/scenario': [ScenarioDeleteRequest, ScenarioDeleteResponse]
+    '/api/sandbox': [SandboxDeleteRequest, SandboxDeleteResponse]
   }
 }>

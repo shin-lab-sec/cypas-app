@@ -3,12 +3,12 @@ import type { NextPage } from 'next'
 import { ApiError } from 'next/dist/server/api-utils'
 import React from 'react'
 import { getRoute } from '../foundation/routes'
-import { useStartScenario, useDeleteScenario } from 'features/scenario/hooks'
+import { useStartSandbox, useDeleteSandbox } from 'features/sandbox/hooks'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
 
 const Home: NextPage = () => {
-  const { scenarioUrl, startScenario } = useStartScenario()
-  const { deleteScenario } = useDeleteScenario()
+  const { sandboxUrl, startSandbox } = useStartSandbox()
+  const { deleteSandbox } = useDeleteSandbox()
 
   return (
     <DashBoardLayout
@@ -18,12 +18,12 @@ const Home: NextPage = () => {
         getRoute('/courses/:id', { id: 'id', title: 'XSS初級' }),
       ]}
     >
-      <Title size={'h3'}>シナリオ</Title>
+      <Title size={'h3'}>サンドボックス</Title>
       <Group mt={'md'}>
         <Button
           onClick={async () => {
             try {
-              await startScenario()
+              await startSandbox()
             } catch (e) {
               if (e instanceof ApiError) {
                 console.log(e)
@@ -37,7 +37,7 @@ const Home: NextPage = () => {
           variant="outline"
           onClick={async () => {
             try {
-              await deleteScenario()
+              await deleteSandbox()
             } catch (e) {
               if (e instanceof ApiError) {
                 console.log(e)

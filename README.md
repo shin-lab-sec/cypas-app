@@ -1,6 +1,6 @@
-# cyber-range-client
+# cypas-app
 
-テーマ「クラウドベースのセキュリティ演習」の client 側のリポジトリ
+Cypas におけるユーザー演習アプリの役割を持ったリポジトリ
 
 ## 演習イメージ
 
@@ -15,7 +15,7 @@
 ### step1 リポジトリをクローン
 
 ```
-git clone https://github.com/shin-lab-sec/cyber-range-client.git
+git clone https://github.com/shin-lab-sec/cypas-app.git
 ```
 
 ### step2 .env 作成

@@ -11,21 +11,21 @@ const fetchCourse = (id: string) => ({
   title: 'XSS初級',
   description:
     'このコースでは、実際にXSSを体験することができます。XSS（クロスサイトスクリプティング）は、ウェブアプリケーションの脆弱性を悪用して、悪意のあるスクリプトを他のユーザーのブラウザ上で実行する攻撃方法です。この初級コースでは、XSSの基本的な概念や種類、そして防御方法について学びます。',
-  curriculums: [
+  sections: [
     {
-      id: 'curriculum-id1',
+      id: 'section-id1',
       title: 'まずは体験してみよう',
     },
     {
-      id: 'curriculum-id2',
+      id: 'section-id2',
       title: '反射型XSS',
     },
     {
-      id: 'curriculum-id3',
+      id: 'section-id3',
       title: '格納型XSS',
     },
     {
-      id: 'curriculum-id4',
+      id: 'section-id4',
       title: 'XSS対策',
     },
   ],
@@ -47,9 +47,9 @@ const Course: NextPage = () => {
       <Text mt="sm">{course.description}</Text>
 
       <Stack mt={'lg'}>
-        {course.curriculums.map(curriculum => (
+        {course.sections.map(section => (
           <Box
-            key={curriculum.id}
+            key={section.id}
             sx={t => ({
               display: 'flex',
               justifyContent: 'space-between',
@@ -63,7 +63,7 @@ const Course: NextPage = () => {
             })}
           >
             <Text size="md" sx={{ whiteSpace: 'nowrap' }} c={'gray.4'}>
-              {curriculum.title}
+              {section.title}
             </Text>
 
             <Button
