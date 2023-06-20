@@ -14,7 +14,13 @@ import { HttpMethod } from 'foundation/utils/fetchApi'
 type Schema<
   T extends Record<
     HttpMethod,
-    { [url: string]: [object | undefined, object | undefined] }
+    {
+      // api routes or cms
+      [url: `/api/${string}` | `/cms/${string}`]: [
+        object | undefined,
+        object | undefined,
+      ]
+    }
   >,
 > = T
 
@@ -24,7 +30,7 @@ export type Api = Schema<{
   // }
   GET: {
     '/api/hello': [{ message: string; test: number }, { message: string }]
-    '/api/useragents': [UseragentsGetRequest, UseragentsGetResponse]
+    '/cms/useragents': [UseragentsGetRequest, UseragentsGetResponse]
   }
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]
