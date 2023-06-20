@@ -5,6 +5,10 @@ import {
   SandboxPostRequest,
   SandboxPostResponse,
 } from 'features/sandbox/apiTypes'
+import {
+  UseragentsGetRequest,
+  UseragentsGetResponse,
+} from 'features/useragent/apiTypes'
 import { HttpMethod } from 'foundation/utils/fetchApi'
 
 type Schema<
@@ -20,6 +24,7 @@ export type Api = Schema<{
   // }
   GET: {
     '/api/hello': [{ message: string; test: number }, { message: string }]
+    '/api/useragents': [UseragentsGetRequest, UseragentsGetResponse]
   }
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]

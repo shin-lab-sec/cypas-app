@@ -13,7 +13,7 @@ export default apiHandler('/api/sandbox', {
       // req.body.sandboxIdを使ってscenario, userAgentをfetchしてくる
 
       const response = await postApi<SandboxPostResponse>(
-        process.env.SMS_DOMAIN + '/scenario',
+        process.env.SMS_URL + '/scenario',
         {
           sandboxKey: getSandboxKey(scenario, req.body.ownerName),
           userName: req.body.userName,
@@ -34,7 +34,7 @@ export default apiHandler('/api/sandbox', {
       // TODO: CMSのAPI実装後修正する
       // req.body.sandboxIdを使ってscenario, userAgentをfetchしてくる
 
-      await deleteApi(process.env.SMS_DOMAIN + '/sandbox', {
+      await deleteApi(process.env.SMS_URL + '/sandbox', {
         sandboxKey: getSandboxKey(scenario, req.query.userName),
       })
 
