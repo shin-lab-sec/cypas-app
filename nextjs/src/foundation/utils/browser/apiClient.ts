@@ -1,6 +1,22 @@
 import { Api } from '../../apiSchema'
 import { fetchApi } from '../fetchApi'
 
+type UrlMap =
+  | keyof Api['GET']
+  | keyof Api['POST']
+  | keyof Api['PUT']
+  | keyof Api['DELETE']
+
+// /api/aaa -> /api/aaa
+// /cms/aaa -> https://cms.cypas.sec/api/v1/aaa
+const getUrlWithOriginAttached = (url: UrlMap) => {
+  if (url.startsWith('/cms/')) {
+    return url.replace('/cms', process.env.NEXT_PUBLIC_CMS_URL + '/api/v1')
+  }
+
+  return url
+}
+
 // 余剰プロパティチェック
 export type StrictPropertyCheck<T, TExpected> = Exclude<
   keyof T,
@@ -18,7 +34,7 @@ export const getApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['GET'][Url][0]>]
-) => fetchApi<Response>(url, 'GET', args.at(0))
+) => fetchApi<Response>(getUrlWithOriginAttached(url), 'GET', args.at(0))
 
 export const postApi = async <
   Url extends keyof Api['POST'],
@@ -29,7 +45,7 @@ export const postApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['POST'][Url][0]>]
-) => fetchApi<Response>(url, 'POST', args.at(0))
+) => fetchApi<Response>(getUrlWithOriginAttached(url), 'POST', args.at(0))
 
 export const putApi = async <
   Url extends keyof Api['PUT'],
@@ -40,7 +56,7 @@ export const putApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['PUT'][Url][0]>]
-) => fetchApi<Response>(url, 'PUT', args.at(0))
+) => fetchApi<Response>(getUrlWithOriginAttached(url), 'PUT', args.at(0))
 
 export const deleteApi = async <
   Url extends keyof Api['DELETE'],
@@ -50,4 +66,4 @@ export const deleteApi = async <
   ...args: Request extends undefined
     ? []
     : [StrictPropertyCheck<Request, Api['DELETE'][Url][0]>]
-) => fetchApi<undefined>(url, 'DELETE', args.at(0))
+) => fetchApi<undefined>(getUrlWithOriginAttached(url), 'DELETE', args.at(0))

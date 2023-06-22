@@ -15,6 +15,7 @@ services:
       # コンテナ内部のdnsではAPI routesでバックエンド側のドメインを名前解決できないため
       # 本当はホスト側のlocalhostに接続したいが、localhostの挙動が特殊なためルーターを経由して外からのアクセスと同等にしている
       - 'sms.cypas.sec:${HOST_IP}'
+      - 'cms.cypas.sec:${HOST_IP}'
     ports:
       - 8000:8000
     depends_on:
