@@ -1,10 +1,18 @@
+export type SandboxInfo = {
+  userName: string
+  ownerName: string
+  courseId: string
+  sectionId: string
+  userAgentType: 'vdi' | 'terminal'
+}
+
 export type Sandbox =
-  | {
-      status: 'active' | 'creating'
-      userName: string
-      ownerName: string
-      courseId: string
-      sectionId: string
-      userAgentType: 'vdi' | 'terminal'
-    }
-  | { status: 'inactive' }
+  | { status: 'inactive' | 'deleting' }
+  | ({
+      status: 'ready' | 'creating'
+    } & SandboxInfo)
+  | ({
+      status: 'active'
+      sandboxUrl: string
+    } & SandboxInfo)
+  | { status: 'error'; message: string }
