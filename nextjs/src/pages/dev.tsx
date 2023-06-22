@@ -123,16 +123,14 @@ const Dev: NextPage = () => {
             onChange={e => setOwnerName(e.target.value)}
           />
 
-          <div className="mt-2 flex-1">
+          <Box mt={'md'} sx={{ flex: 1 }}>
             <a href={sandboxUrl} target="_blank" rel="noreferrer">
               {sandboxUrl}
             </a>
             <iframe
-              className="mt-2 h-80 rounded-md bg-white"
               title="terminal"
-              height={'100%'}
-              width={'100%'}
               src={sandboxUrl}
+              style={{ width: '100%', height: '100%', borderRadius: 20 }}
             ></iframe>
           </div>
         </Box>

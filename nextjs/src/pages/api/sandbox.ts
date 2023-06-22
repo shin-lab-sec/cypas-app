@@ -13,7 +13,7 @@ export default apiHandler('/api/sandbox', {
       // req.body.sandboxIdを使ってscenario, userAgentをfetchしてくる
 
       const response = await postApi<SandboxPostResponse>(
-        process.env.SMS_URL + '/scenario',
+        process.env.SMS_URL + '/sandbox',
         {
           sandboxKey: getSandboxKey(scenario, req.body.ownerName),
           userName: req.body.userName,
@@ -23,6 +23,7 @@ export default apiHandler('/api/sandbox', {
       )
       return res.json(response)
     } catch (error) {
+      console.log(error)
       return res
         .status(400)
         .json({ message: 'サンドボックスが起動できませんでした。' } as Error)
@@ -38,7 +39,7 @@ export default apiHandler('/api/sandbox', {
         sandboxKey: getSandboxKey(scenario, req.query.userName),
       })
 
-      return res.status(204).json({})
+      return res.status(204).end()
     } catch (error) {
       return res.status(400).json({
         message: 'サンドボックスを削除できるのはオーナーのみです。',
