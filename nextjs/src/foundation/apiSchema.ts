@@ -5,12 +5,22 @@ import {
   SandboxPostRequest,
   SandboxPostResponse,
 } from 'features/sandbox/apiTypes'
+import {
+  UseragentsGetRequest,
+  UseragentsGetResponse,
+} from 'features/useragent/apiTypes'
 import { HttpMethod } from 'foundation/utils/fetchApi'
 
 type Schema<
   T extends Record<
     HttpMethod,
-    { [url: string]: [object | undefined, object | undefined] }
+    {
+      // api routes or cms
+      [url: `/api/${string}` | `/cms/${string}`]: [
+        object | undefined,
+        object | undefined,
+      ]
+    }
   >,
 > = T
 
@@ -20,6 +30,7 @@ export type Api = Schema<{
   // }
   GET: {
     '/api/hello': [{ message: string; test: number }, { message: string }]
+    '/cms/useragents': [UseragentsGetRequest, UseragentsGetResponse]
   }
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]

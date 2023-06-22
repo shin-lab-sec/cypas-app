@@ -1,9 +1,9 @@
-import { Button, Flex, Group, TextInput } from '@mantine/core'
+import { Box, Button, Flex, Group, TextInput } from '@mantine/core'
 import type { GetServerSideProps, NextPage } from 'next'
 import { useSession, signIn, signOut } from 'next-auth/react'
 import { useState } from 'react'
 import { useStartSandbox, useDeleteSandbox } from 'features/sandbox/hooks'
-import { postApi } from 'foundation/utils/browser/apiClient'
+import { getApi, postApi } from 'foundation/utils/browser/apiClient'
 import { ApiError } from 'foundation/utils/fetchApi'
 
 //開発用のページ。開発環境のみ見ることができる。
@@ -50,8 +50,8 @@ const Dev: NextPage = () => {
       <div>email: {session.user.email}</div>
 
       <h1 className="pt-4 text-center text-4xl font-bold">開発用ページ</h1>
-      <div className="mx-10 mt-10 flex h-[80%] justify-evenly gap-10">
-        <div className="w-[50%] max-w-xl">
+      <Flex gap={'lg'} h={'80%'} justify={'space-evenly'} px={'lg'}>
+        <Box w={'50%'}>
           <h2>docker コマンド</h2>
           <Flex>
             <TextInput
@@ -64,9 +64,10 @@ const Dev: NextPage = () => {
             <Button
               onClick={async () => {
                 try {
-                  const res = await postApi('/api/docker', {
-                    command,
-                  })
+                  // const res = await postApi('/api/docker', {
+                  //   command,
+                  // })
+                  const res = await getApi('/cms/useragents')
                   setRes(res)
                 } catch (e) {
                   if (e instanceof ApiError) {
@@ -81,9 +82,9 @@ const Dev: NextPage = () => {
           <pre>
             <code>{JSON.stringify(res, null, 2)}</code>
           </pre>
-        </div>
+        </Box>
 
-        <div className="flex w-[50%] max-w-xl flex-col">
+        <Box w={'50%'}>
           <h2>サンドボックス</h2>
           <Group>
             <Button
@@ -122,20 +123,18 @@ const Dev: NextPage = () => {
             onChange={e => setOwnerName(e.target.value)}
           />
 
-          <div className="mt-2 flex-1">
+          <Box mt={'md'} sx={{ flex: 1 }}>
             <a href={sandboxUrl} target="_blank" rel="noreferrer">
               {sandboxUrl}
             </a>
             <iframe
-              className="mt-2 h-80 rounded-md bg-white"
               title="terminal"
-              height={'100%'}
-              width={'100%'}
               src={sandboxUrl}
+              style={{ width: '100%', height: '100%', borderRadius: 20 }}
             ></iframe>
           </div>
-        </div>
-      </div>
+        </Box>
+      </Flex>
     </div>
   )
 }
