@@ -3,12 +3,10 @@ import { Sandbox } from 'features/sandbox/types'
 
 type AppState = {
   openNavbar: boolean
-  sandbox: Sandbox
 }
 
 const initState: AppState = {
   openNavbar: true,
-  sandbox: { status: 'inactive' },
 }
 
 export const useAppState = <Path extends keyof AppState>(
