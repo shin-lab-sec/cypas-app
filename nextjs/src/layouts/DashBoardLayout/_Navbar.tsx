@@ -1,9 +1,5 @@
-import { Navbar, ActionIcon, Box } from '@mantine/core'
-import {
-  Icon3dCubeSphereOff,
-  IconChevronsLeft,
-  IconChevronsRight,
-} from '@tabler/icons-react'
+import { Navbar, ActionIcon } from '@mantine/core'
+import { IconChevronsLeft, IconChevronsRight } from '@tabler/icons-react'
 import React, { FC } from 'react'
 import {
   HEADER_HEIGHT,
@@ -11,7 +7,6 @@ import {
   NAVBAR_WIDTH_NARROWED,
 } from './DashBoardLayout'
 import { _NavLinks } from './_NavLinks'
-import { _User } from './_User'
 import { SessionUser } from 'features/auth/types'
 
 type _NavbarProps = {
@@ -51,18 +46,6 @@ export const _Navbar: FC<_NavbarProps> = ({
       <Navbar.Section grow mt={'xs'}>
         <_NavLinks currentNavTitle={currentNavTitle} compact={!openNavbar} />
       </Navbar.Section>
-
-      {/* {openNavbar ? (
-        <Navbar.Section p={'xs'}>
-          <Button
-            leftIcon={<IconLogout size="1rem" />}
-            variant="outline"
-            onClick={() => signOut({ callbackUrl: '/' })}
-          >
-            Logout
-          </Button>
-        </Navbar.Section>
-      ) : null} */}
     </Navbar>
   )
 }

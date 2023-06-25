@@ -1,5 +1,5 @@
 import { Box, Text, rem, UnstyledButton, Group, Avatar } from '@mantine/core'
-import { IconChevronDown, IconChevronRight } from '@tabler/icons-react'
+import { IconChevronDown } from '@tabler/icons-react'
 import React, { FC } from 'react'
 import { SessionUser } from 'features/auth/types'
 

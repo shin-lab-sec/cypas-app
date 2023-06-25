@@ -1,6 +1,5 @@
 import {
   Avatar,
-  Box,
   Flex,
   Group,
   Header,
@@ -12,14 +11,12 @@ import { IconChevronDown } from '@tabler/icons-react'
 import React, { FC } from 'react'
 import { HEADER_HEIGHT } from './DashBoardLayout'
 import { SessionUser } from 'features/auth/types'
-import { _User } from 'layouts/DashBoardLayout/_User'
 
 type _HeaderProps = {
   user: Pick<SessionUser, 'name' | 'email'>
 }
 
 export const _Header: FC<_HeaderProps> = ({ user }) => {
-  const compact = false
   return (
     <Header height={HEADER_HEIGHT} p="xs">
       <Flex h={'100%'} justify={'space-between'} align={'center'}>

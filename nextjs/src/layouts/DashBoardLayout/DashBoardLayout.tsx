@@ -1,13 +1,13 @@
-import { Anchor, AppShell, Breadcrumbs, Center, Loader } from '@mantine/core'
-import { useLocalStorage } from '@mantine/hooks'
+import { Anchor, AppShell, Breadcrumbs } from '@mantine/core'
 import { useRouter } from 'next/router'
 import { useSession } from 'next-auth/react'
 import React, { FC, ReactNode } from 'react'
 import { _Header } from './_Header'
 import { _Navbar } from './_Navbar'
-import { getRoute } from 'foundation/routes'
-import { useAppState } from 'foundation/appState'
+import { SessionUser } from 'features/auth/types'
 import { SandBox } from 'features/sandbox/components/SandBox'
+import { useAppState } from 'foundation/appState'
+import { getRoute } from 'foundation/routes'
 
 export const HEADER_HEIGHT = 70
 export const NAVBAR_WIDTH = 260
@@ -37,12 +37,9 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
 
   const [openNavbar, setOpenNavbar] = useAppState('openNavbar')
 
-  if (!session?.user)
-    return (
-      <Center mih={'100vh'}>
-        <Loader />
-      </Center>
-    )
+  const user: SessionUser = session
+    ? session.user
+    : { id: '', name: '', email: '' }
 
   return (
     <AppShell
@@ -52,11 +49,11 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
           backgroundColor: t.colors.dark[8],
         },
       })}
-      header={<_Header user={session.user} />}
+      header={<_Header user={user} />}
       navbar={
         <_Navbar
           currentNavTitle={currentNavTitle || ''}
-          user={session.user}
+          user={user}
           openNavbar={openNavbar}
           onToggleNavber={() => setOpenNavbar(!openNavbar)}
         />
