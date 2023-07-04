@@ -1,14 +1,20 @@
 import { Prisma } from '@prisma/client'
 import {
+  CourseGetRequest,
+  CourseGetResponse,
+  CoursesGetRequest,
+  CoursesGetResponse,
+} from 'features/course/apiTypes'
+import {
   SandboxDeleteRequest,
   SandboxDeleteResponse,
   SandboxPostRequest,
   SandboxPostResponse,
 } from 'features/sandbox/apiTypes'
 import {
-  UseragentsGetRequest,
-  UseragentsGetResponse,
-} from 'features/useragent/apiTypes'
+  SectionGetRequest,
+  SectionGetResponse,
+} from 'features/section/apiTypes'
 import { HttpMethod } from 'foundation/utils/fetchApi'
 
 type Schema<
@@ -30,7 +36,9 @@ export type Api = Schema<{
   // }
   GET: {
     '/api/hello': [{ message: string; test: number }, { message: string }]
-    '/cms/useragents': [UseragentsGetRequest, UseragentsGetResponse]
+    '/cms/courses': [CoursesGetRequest, CoursesGetResponse]
+    '/cms/courses/:id': [CourseGetRequest, CourseGetResponse]
+    '/cms/sections/:id': [SectionGetRequest, SectionGetResponse]
   }
   POST: {
     '/api/users': [Prisma.UserCreateInput, Prisma.UserCreateInput]

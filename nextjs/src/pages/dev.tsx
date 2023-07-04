@@ -85,7 +85,8 @@ const Dev: NextPage = () => {
                   // const res = await postApi('/api/docker', {
                   //   command,
                   // })
-                  const res = await getApi('/cms/useragents')
+                  const res = await getApi('/cms/courses')
+
                   setRes(res)
                 } catch (e) {
                   if (e instanceof ApiError) {
