@@ -1,4 +1,4 @@
-import { Box, Button, Center, Stack, Text } from '@mantine/core'
+import { Box, Center } from '@mantine/core'
 import {
   Icon3dCubeSphere,
   Icon3dCubeSphereOff,
@@ -6,6 +6,8 @@ import {
   IconLoader,
 } from '@tabler/icons-react'
 import React, { FC, useState } from 'react'
+import { _ReadySandbox } from './_ReadySandbox'
+import { SessionUser } from 'features/auth/types'
 import { useSandboxValue } from 'features/sandbox/atoms'
 import { Sandbox } from 'features/sandbox/types'
 import { useAppState } from 'foundation/appState'
@@ -15,41 +17,53 @@ const getUI = (
 ): {
   bgColor: string
   icon: JSX.Element
-  contents?: JSX.Element
+  contents: (...args: any[]) => JSX.Element
 } => {
   switch (status) {
     case 'active':
       return {
         bgColor: 'orange',
         icon: <IconBox color="#FFFFFF" size={'55%'} />,
-        contents: <IconBox size={40} />,
+        contents: () => <IconBox size={40} />,
       }
     case 'ready':
       return {
         bgColor: 'orange',
         icon: <Icon3dCubeSphere color="#FFFFFF" size={'55%'} />,
-        contents: (
-          <Stack>
-            <Text c={'white'}>サンドボックス</Text>
-            <Text c={'white'}>色々起動時の情報</Text>
-            <Button variant="filled">作成する</Button>
-          </Stack>
-        ),
+        contents: (user: SessionUser) => <_ReadySandbox user={user} />,
       }
     case 'creating':
-      return { bgColor: 'orange', icon: <IconLoader size={'55%'} /> }
+      return {
+        bgColor: 'orange',
+        icon: <IconLoader size={'55%'} />,
+        contents: () => <></>,
+      }
     case 'deleting':
-      return { bgColor: 'black', icon: <IconLoader size={'55%'} /> }
+      return {
+        bgColor: 'black',
+        icon: <IconLoader size={'55%'} />,
+        contents: () => <></>,
+      }
     case 'inactive':
-      return { bgColor: 'black', icon: <Icon3dCubeSphereOff size={'55%'} /> }
+      return {
+        bgColor: 'black',
+        icon: <Icon3dCubeSphereOff size={'55%'} />,
+        contents: () => <></>,
+      }
     case 'error':
-      return { bgColor: 'black', icon: <Icon3dCubeSphereOff size={'55%'} /> }
+      return {
+        bgColor: 'black',
+        icon: <Icon3dCubeSphereOff size={'55%'} />,
+        contents: () => <></>,
+      }
   }
 }
 
-type SandBoxProps = {}
+type SandBoxProps = {
+  user: SessionUser
+}
 
-export const SandBox: FC<SandBoxProps> = ({}) => {
+export const SandBox: FC<SandBoxProps> = ({ user }) => {
   const sandbox = useSandboxValue()
 
   const [openNavber] = useAppState('openNavbar')
@@ -103,7 +117,7 @@ export const SandBox: FC<SandBoxProps> = ({}) => {
               padding: 64,
             }}
           >
-            {getUI(sandbox.status).contents}
+            {getUI(sandbox.status).contents(user)}
           </Box>
         ) : null}
 

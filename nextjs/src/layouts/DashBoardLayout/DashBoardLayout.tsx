@@ -71,7 +71,7 @@ export const DashBoardLayout: FC<DashBoardLayoutProps> = ({
 
       {children}
 
-      <SandBox />
+      <SandBox user={user} />
     </AppShell>
   )
 }

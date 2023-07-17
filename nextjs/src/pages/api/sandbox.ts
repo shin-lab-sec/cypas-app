@@ -4,7 +4,7 @@ import { deleteApi, postApi } from 'foundation/utils/server/apiClient'
 import { apiHandler } from 'foundation/utils/server/apiHandler'
 
 const scenario: 'sample-scenario' = 'sample-scenario'
-const userAgent: 'kali-vdi' | 'kali-wetty' = 'kali-vdi'
+const userAgent: 'kali-vdi' | 'kali-wetty' = 'kali-wetty'
 
 export default apiHandler('/api/sandbox', {
   async post(req, res) {

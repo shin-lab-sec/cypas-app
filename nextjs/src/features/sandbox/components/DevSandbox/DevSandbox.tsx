@@ -18,6 +18,7 @@ export const DevSandbox: FC<DevSandboxProps> = ({}) => {
             right: 0,
             padding: 10,
             backgroundColor: 'grey',
+            maxWidth: 400,
           }}
         >
           <Flex justify={'end'}>
