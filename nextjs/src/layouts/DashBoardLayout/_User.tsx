@@ -5,7 +5,7 @@ import { SessionUser } from 'features/auth/types'
 
 type _UserProps = {
   compact: boolean
-  user: Pick<SessionUser, 'name' | 'email'>
+  user: SessionUser
 }
 
 export const _User: FC<_UserProps> = ({ user, compact }) => {

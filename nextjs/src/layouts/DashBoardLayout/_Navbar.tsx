@@ -11,7 +11,7 @@ import { SessionUser } from 'features/auth/types'
 
 type _NavbarProps = {
   currentNavTitle: string
-  user: Pick<SessionUser, 'name' | 'email'>
+  user: SessionUser
   openNavbar: boolean
   onToggleNavber: () => void
 }

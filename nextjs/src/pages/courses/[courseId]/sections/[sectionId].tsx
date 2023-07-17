@@ -1,88 +1,44 @@
-import { Title, Text, Button, Group } from '@mantine/core'
+import { Title } from '@mantine/core'
 import type { NextPage } from 'next'
 import { useRouter } from 'next/router'
 import React from 'react'
 import { useVerifiedSession } from 'features/auth/hooks'
-import {
-  useReadySandbox,
-  useStartSandbox,
-  useDeleteSandbox,
-} from 'features/sandbox/hooks'
+import { useGetSection } from 'features/section/hooks'
+import { SectionSandbox } from 'features/section/sandbox/components/SectionSandbox'
 import { getRoute } from 'foundation/routes'
-import { ApiError } from 'foundation/utils/fetchApi'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
-
-const fetchSection = (id: string) =>
-  ({
-    type: 'sandbox',
-    id: 'section-id',
-    courseId: 'course-id',
-    title: 'まずは体験してみよう',
-    description: 'さぁ、Linuxを体験しよう！',
-    userAgentType: 'vdi',
-  } as const)
 
 const Section: NextPage = () => {
   const router = useRouter()
-  const section = fetchSection(router.query.sectionId as string)
+  const [section] = useGetSection(router.query.sectionId as string)
 
   const { data: session } = useVerifiedSession()
-
-  useReadySandbox({
-    userName: session?.user.name || '',
-    ownerName: '',
-    courseId: section.courseId,
-    sectionId: section.id,
-    userAgentType: section.userAgentType,
-  })
-  const { startSandbox } = useStartSandbox()
-  const { deleteSandbox } = useDeleteSandbox()
 
   return (
     <DashBoardLayout
       breadcrumbsList={[
         getRoute('/courses'),
-        getRoute('/courses/:id', { id: section.courseId, title: 'XSS初級' }),
+        getRoute('/courses/:id', {
+          id: section.state === 'hasValue' ? section.contents.courseId : '',
+          title: 'XSS初級',
+        }),
         getRoute('/courses/:cid/sections/:sid', {
-          cid: section.courseId,
-          sid: section.id,
-          title: section.title,
+          cid: section.state === 'hasValue' ? section.contents.courseId : '',
+          sid: section.state === 'hasValue' ? section.contents.id : '',
+          title: section.state === 'hasValue' ? section.contents.name : '',
         }),
       ]}
     >
-      <Title size={'h3'}>{section.title}</Title>
+      {section.state === 'hasValue' ? (
+        <>
+          <Title size={'h3'}>{section.contents.name}</Title>
 
-      <Text mt="sm">{section.description}</Text>
-
-      {session ? (
-        <Group mt={'lg'}>
-          <Button
-            onClick={async () => {
-              try {
-                await startSandbox(session.user)
-              } catch (e) {
-                if (e instanceof ApiError) {
-                  console.log(e)
-                }
-              }
-            }}
-          >
-            スタート
-          </Button>
-          <Button
-            onClick={async () => {
-              try {
-                await deleteSandbox(session.user)
-              } catch (e) {
-                if (e instanceof ApiError) {
-                  console.log(e)
-                }
-              }
-            }}
-          >
-            削除
-          </Button>
-        </Group>
+          {section.contents.type === 'article' && <div>article</div>}
+          {section.contents.type === 'quiz' && <div>quiz</div>}
+          {section.contents.type === 'sandbox' && session && (
+            <SectionSandbox user={session?.user} section={section.contents} />
+          )}
+        </>
       ) : null}
     </DashBoardLayout>
   )

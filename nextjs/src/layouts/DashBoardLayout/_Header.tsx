@@ -13,7 +13,7 @@ import { HEADER_HEIGHT } from './DashBoardLayout'
 import { SessionUser } from 'features/auth/types'
 
 type _HeaderProps = {
-  user: Pick<SessionUser, 'name' | 'email'>
+  user: SessionUser
 }
 
 export const _Header: FC<_HeaderProps> = ({ user }) => {
