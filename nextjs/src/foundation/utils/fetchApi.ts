@@ -72,6 +72,7 @@ export const fetchApi = async <T>(
     if (error instanceof ApiError) {
       throw error
     }
+    console.log(error)
     throw new Error('unknown error')
   }
 

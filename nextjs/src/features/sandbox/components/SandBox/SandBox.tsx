@@ -1,4 +1,4 @@
-import { Box, Center } from '@mantine/core'
+import { Box, Center, keyframes } from '@mantine/core'
 import {
   Icon3dCubeSphere,
   Icon3dCubeSphereOff,
@@ -6,11 +6,17 @@ import {
   IconLoader,
 } from '@tabler/icons-react'
 import React, { FC, useState } from 'react'
+import { _ActiveSandbox } from './_ActiveSandbox'
 import { _ReadySandbox } from './_ReadySandbox'
 import { SessionUser } from 'features/auth/types'
 import { useSandboxValue } from 'features/sandbox/atoms'
-import { Sandbox } from 'features/sandbox/types'
+import { ActiveSandbox, Sandbox } from 'features/sandbox/types'
 import { useAppState } from 'foundation/appState'
+
+const spin = keyframes({
+  '0%': { transform: 'rotate(0)' },
+  '100%': { transform: 'rotate(360deg)' },
+})
 
 const getUI = (
   status: Sandbox['status'],
@@ -24,7 +30,9 @@ const getUI = (
       return {
         bgColor: 'orange',
         icon: <IconBox color="#FFFFFF" size={'55%'} />,
-        contents: () => <IconBox size={40} />,
+        contents: (user: SessionUser, sandbox: ActiveSandbox) => (
+          <_ActiveSandbox user={user} sandbox={sandbox} />
+        ),
       }
     case 'ready':
       return {
@@ -35,13 +43,35 @@ const getUI = (
     case 'creating':
       return {
         bgColor: 'orange',
-        icon: <IconLoader size={'55%'} />,
+        icon: (
+          <Center
+            sx={{
+              animation: `${spin} 3s linear infinite`,
+            }}
+          >
+            <IconLoader
+              color="white"
+              size={'55%'}
+              style={{
+                animation: `${spin} 3s linear infinite`,
+              }}
+            />
+          </Center>
+        ),
         contents: () => <></>,
       }
     case 'deleting':
       return {
         bgColor: 'black',
-        icon: <IconLoader size={'55%'} />,
+        icon: (
+          <Center
+            sx={{
+              animation: `${spin} 3s linear infinite`,
+            }}
+          >
+            <IconLoader size={'55%'} />
+          </Center>
+        ),
         contents: () => <></>,
       }
     case 'inactive':
@@ -52,7 +82,7 @@ const getUI = (
       }
     case 'error':
       return {
-        bgColor: 'black',
+        bgColor: 'orange',
         icon: <Icon3dCubeSphereOff size={'55%'} />,
         contents: () => <></>,
       }
@@ -70,6 +100,9 @@ export const SandBox: FC<SandBoxProps> = ({ user }) => {
   const [expanding, setExpanding] = useState(false)
   const [isExpanded, setIsExpanded] = useState(false)
 
+  const ableToExpanding =
+    ['active', 'ready'].includes(sandbox.status) && expanding
+
   return (
     <Box
       onMouseEnter={() => {
@@ -80,17 +113,17 @@ export const SandBox: FC<SandBoxProps> = ({ user }) => {
         setExpanding(false)
         setIsExpanded(false)
       }}
-      onTransitionEnd={() => expanding && setIsExpanded(true)}
+      onTransitionEnd={() => ableToExpanding && setIsExpanded(true)}
       sx={{
         zIndex: 500,
         position: 'fixed',
         bottom: 0,
         left: 0,
         borderRadius: 38,
-        borderBottomLeftRadius: expanding ? 0 : 0,
+        borderBottomLeftRadius: ableToExpanding ? 0 : 0,
         transitionDuration: '700ms',
-        width: expanding ? 320 : openNavber ? 100 : 70,
-        height: expanding ? 320 : openNavber ? 100 : 70,
+        width: ableToExpanding ? 320 : openNavber ? 100 : 70,
+        height: ableToExpanding ? 320 : openNavber ? 100 : 70,
         paddingBottom: openNavber ? 20 : 8,
         paddingLeft: openNavber ? 20 : 8,
       }}
@@ -117,14 +150,14 @@ export const SandBox: FC<SandBoxProps> = ({ user }) => {
               padding: 64,
             }}
           >
-            {getUI(sandbox.status).contents(user)}
+            {getUI(sandbox.status).contents(user, sandbox)}
           </Box>
         ) : null}
 
         <Center
           sx={{
             position: 'absolute',
-            opacity: expanding ? 0 : 1,
+            opacity: ableToExpanding ? 0 : 1,
             transition: '700ms',
             width: '100%',
             height: '100%',

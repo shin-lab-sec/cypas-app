@@ -10,7 +10,7 @@ import {
   useSyncSandbox,
 } from 'features/sandbox/hooks'
 import { SandboxInfo } from 'features/sandbox/types'
-import { getApi } from 'foundation/utils/browser/apiClient'
+import { getApi, postApi } from 'foundation/utils/browser/apiClient'
 import { ApiError } from 'foundation/utils/fetchApi'
 
 //開発用のページ。開発環境のみ見ることができる。
@@ -82,10 +82,10 @@ const Dev: NextPage = () => {
             <Button
               onClick={async () => {
                 try {
-                  // const res = await postApi('/api/docker', {
-                  //   command,
-                  // })
-                  const res = await getApi('/cms/courses')
+                  const res = await postApi('/api/docker', {
+                    command,
+                  })
+                  // const res = await getApi('/cms/courses')
 
                   setRes(res)
                 } catch (e) {
