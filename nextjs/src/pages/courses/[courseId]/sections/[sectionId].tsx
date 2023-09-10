@@ -33,11 +33,13 @@ const Section: NextPage = () => {
         <>
           <Title size={'h3'}>{section.contents.name}</Title>
 
-          {section.contents.type === 'article' && <div>article</div>}
-          {section.contents.type === 'quiz' && <div>quiz</div>}
-          {section.contents.type === 'sandbox' && session && (
+          {section.contents.type === 'article' ? (
+            <pre>{JSON.stringify(section, null, 2)}</pre>
+          ) : null}
+          {section.contents.type === 'quiz' ? <div>quiz</div> : null}
+          {section.contents.type === 'sandbox' && session ? (
             <SectionSandbox user={session?.user} section={section.contents} />
-          )}
+          ) : null}
         </>
       ) : null}
     </DashBoardLayout>

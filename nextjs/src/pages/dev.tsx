@@ -10,7 +10,7 @@ import {
   useSyncSandbox,
 } from 'features/sandbox/hooks'
 import { SandboxInfo } from 'features/sandbox/types'
-import { getApi, postApi } from 'foundation/utils/browser/apiClient'
+import { postApi } from 'foundation/utils/browser/apiClient'
 import { ApiError } from 'foundation/utils/fetchApi'
 
 //開発用のページ。開発環境のみ見ることができる。
