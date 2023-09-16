@@ -21,16 +21,15 @@ export const SectionSandbox: FC<SectionSandboxProps> = ({ user, section }) => {
 
   useEffect(() => {
     const handleMessage = (event: MessageEvent) => {
-      if (event.data.iframeHeight) {
-        if (iframeRef.current) {
-          iframeRef.current.style.height = `${event.data.iframeHeight}px`
-        }
+      if (iframeRef.current) {
+        iframeRef.current.style.height = `${event.data.height}px`
       }
     }
 
     window.addEventListener('message', handleMessage)
+
     return () => window.removeEventListener('message', handleMessage)
-  }, [])
+  }, [iframeRef])
 
   return (
     <div>

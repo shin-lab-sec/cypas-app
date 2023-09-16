@@ -38,7 +38,7 @@ const Section: NextPage = () => {
           ) : null}
           {section.contents.type === 'quiz' ? <div>quiz</div> : null}
           {section.contents.type === 'sandbox' && session ? (
-            <SectionSandbox user={session?.user} section={section.contents} />
+            <SectionSandbox user={session.user} section={section.contents} />
           ) : null}
         </>
       ) : null}
