@@ -10,7 +10,7 @@ import { _ActiveSandbox } from './_ActiveSandbox'
 import { _ReadySandbox } from './_ReadySandbox'
 import { SessionUser } from 'features/auth/types'
 import { useSandboxValue } from 'features/sandbox/atoms'
-import { ActiveSandbox, Sandbox } from 'features/sandbox/types'
+import { ActiveSandbox, ReadySandbox, Sandbox } from 'features/sandbox/types'
 import { useAppState } from 'foundation/appState'
 
 const spin = keyframes({
@@ -23,22 +23,24 @@ const getUI = (
 ): {
   bgColor: string
   icon: JSX.Element
-  contents: (...args: any[]) => JSX.Element
+  contents: (user: SessionUser, sandbox: Sandbox) => JSX.Element
 } => {
   switch (status) {
     case 'active':
       return {
         bgColor: 'orange',
         icon: <IconBox color="#FFFFFF" size={'55%'} />,
-        contents: (user: SessionUser, sandbox: ActiveSandbox) => (
-          <_ActiveSandbox user={user} sandbox={sandbox} />
+        contents: (user, sandbox) => (
+          <_ActiveSandbox user={user} sandbox={sandbox as ActiveSandbox} />
         ),
       }
     case 'ready':
       return {
         bgColor: 'orange',
         icon: <Icon3dCubeSphere color="#FFFFFF" size={'55%'} />,
-        contents: (user: SessionUser) => <_ReadySandbox user={user} />,
+        contents: (user, sandbox) => (
+          <_ReadySandbox user={user} sandbox={sandbox as ReadySandbox} />
+        ),
       }
     case 'creating':
       return {

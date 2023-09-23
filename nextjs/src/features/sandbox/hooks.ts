@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRecoilCallback } from 'recoil'
-import { deleteApi, postApi } from './../../foundation/utils/browser/apiClient'
+import { deleteApi } from './../../foundation/utils/browser/apiClient'
 import { SessionUser } from 'features/auth/types'
 import { sandboxState } from 'features/sandbox/atoms'
 import {
@@ -8,13 +8,13 @@ import {
   readyToCreating,
   toError,
   creatingToActive,
-  getSandboxUrl,
   activeToDeleting,
   deletingToInactive,
   readyToInactive,
 } from 'features/sandbox/services'
 import { SandboxInfo } from 'features/sandbox/types'
 
+// サンドボックス準備
 export const useReadySandbox = (info: SandboxInfo) => {
   const readySandbox = useRecoilCallback(
     ({ set }) =>
@@ -43,6 +43,7 @@ export const useReadySandbox = (info: SandboxInfo) => {
   return { readySandbox }
 }
 
+// サンドボックス起動
 export const useStartSandbox = () => {
   const startSandbox = useRecoilCallback(
     ({ snapshot, set }) =>
@@ -60,16 +61,17 @@ export const useStartSandbox = () => {
         )
 
         try {
-          const { key: sandboxKey } = await postApi('/api/sandbox', {
-            scenarioId: 'id',
-            ownerName: ownerName || user.name,
-            userName: user.name,
-          })
+          // const { key: sandboxKey } = await postApi('/api/sandbox', {
+          //   scenarioId: 'id',
+          //   ownerName: ownerName || user.name,
+          //   userName: user.name,
+          // })
 
           set(sandboxState, s =>
             s.status === 'creating'
-              ? creatingToActive(s, getSandboxUrl(sandboxKey))
-              : toError('error: no creating sandbox'),
+              ? creatingToActive(s, 'https://google.com')
+              : // ? creatingToActive(s, getSandboxUrl(sandboxKey))
+                toError('error: no creating sandbox'),
           )
         } catch (error) {
           set(sandboxState, toError('failed to get sandbox key'))
@@ -82,6 +84,7 @@ export const useStartSandbox = () => {
   return { startSandbox }
 }
 
+// サンドボックス削除
 export const useDeleteSandbox = () => {
   const deleteSandbox = useRecoilCallback(
     ({ snapshot, set }) =>
@@ -120,6 +123,7 @@ export const useDeleteSandbox = () => {
   return { deleteSandbox }
 }
 
+// サンドボックス同期
 export const useSyncSandbox = () => {
   const syncSandbox = useRecoilCallback(
     () => () => {
@@ -129,4 +133,23 @@ export const useSyncSandbox = () => {
   )
 
   return { syncSandbox }
+}
+
+// サンドボックスへ飛ばす
+export const useOpenSandboxWindow = () => {
+  const openSandboxWindow = useRecoilCallback(
+    ({ snapshot }) =>
+      async () => {
+        const sandbox = await snapshot.getPromise(sandboxState)
+
+        if (sandbox.status !== 'active') {
+          return alert('サンドボックスがactiveではありません。')
+        }
+
+        window.open(sandbox.sandboxUrl, '_blank', 'width=1000,height=700')
+      },
+    [],
+  )
+
+  return { openSandboxWindow }
 }

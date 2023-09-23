@@ -1,8 +1,7 @@
-import { Button, Stack } from '@mantine/core'
-import { IconExternalLink } from '@tabler/icons-react'
+import { Button, Flex } from '@mantine/core'
 import React, { FC } from 'react'
 import { SessionUser } from '../../../auth/types'
-import { useDeleteSandbox } from 'features/sandbox/hooks'
+import { useDeleteSandbox, useOpenSandboxWindow } from 'features/sandbox/hooks'
 import { ActiveSandbox } from 'features/sandbox/types'
 
 type _ActiveSandboxProps = {
@@ -10,21 +9,16 @@ type _ActiveSandboxProps = {
   sandbox: ActiveSandbox
 }
 
-export const _ActiveSandbox: FC<_ActiveSandboxProps> = ({ user, sandbox }) => {
+export const _ActiveSandbox: FC<_ActiveSandboxProps> = ({ user }) => {
   const { deleteSandbox } = useDeleteSandbox()
+  const { openSandboxWindow } = useOpenSandboxWindow()
 
   return (
-    <Stack>
-      <Button
-        component="a"
-        href={sandbox.sandboxUrl}
-        rightIcon={<IconExternalLink />}
-        target="_blank"
-        rel="nofollow noopener noreferrer"
-      >
-        Go Sandbox!
+    <Flex gap={'lg'} direction={'column'} justify={'center'} h={'100%'}>
+      <Button onClick={() => openSandboxWindow()}>サンドボックスへ</Button>
+      <Button variant="filled" onClick={() => deleteSandbox(user)}>
+        サンドボックスを削除
       </Button>
-      <Button onClick={() => deleteSandbox(user)}>Delete Sandbox</Button>
-    </Stack>
+    </Flex>
   )
 }

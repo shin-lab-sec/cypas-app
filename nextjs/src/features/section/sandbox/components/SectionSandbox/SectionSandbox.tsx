@@ -13,6 +13,7 @@ export const SectionSandbox: FC<SectionSandboxProps> = ({ user, section }) => {
     userName: user.name,
     ownerName: '',
     courseId: section.courseId,
+    courseName: section.name,
     sectionId: section.id,
     userAgentType: section.userAgent.type,
   })
@@ -37,6 +38,7 @@ export const SectionSandbox: FC<SectionSandboxProps> = ({ user, section }) => {
         ref={iframeRef}
         src={`${process.env.NEXT_PUBLIC_CMS_URL}/articles/${section.articleIds[0]}`}
         width={'100%'}
+        height={'0'}
         scrolling="no"
         style={{
           border: 'none',

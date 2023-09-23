@@ -2,6 +2,7 @@ export type SandboxInfo = {
   userName: string
   ownerName: string
   courseId: string
+  courseName: string
   sectionId: string
   userAgentType: 'vdi' | 'terminal'
 }
