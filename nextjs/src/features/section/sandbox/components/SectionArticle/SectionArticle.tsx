@@ -1,23 +1,11 @@
 import React, { FC, useEffect, useRef } from 'react'
-import { SessionUser } from '../../../../auth/types'
-import { useReadySandbox } from '../../../../sandbox/hooks'
-import { SectionSandbox as SectionSandboxType } from './../../types'
+import { SectionArticle as SectionArticleType } from '../../../../section/article/types'
 
-type SectionSandboxProps = {
-  user: SessionUser
-  section: SectionSandboxType
+type SectionArticleProps = {
+  section: SectionArticleType
 }
 
-export const SectionSandbox: FC<SectionSandboxProps> = ({ user, section }) => {
-  useReadySandbox({
-    userName: user.name,
-    ownerName: '',
-    courseId: section.courseId,
-    courseName: section.name,
-    sectionId: section.id,
-    userAgentType: section.userAgent.type,
-  })
-
+export const SectionArticle: FC<SectionArticleProps> = ({ section }) => {
   const iframeRef = useRef<HTMLIFrameElement>(null)
 
   useEffect(() => {

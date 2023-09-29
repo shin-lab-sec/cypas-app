@@ -4,6 +4,7 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import { useVerifiedSession } from 'features/auth/hooks'
 import { useGetSection } from 'features/section/hooks'
+import { SectionArticle } from 'features/section/sandbox/components/SectionArticle'
 import { SectionSandbox } from 'features/section/sandbox/components/SectionSandbox'
 import { getRoute } from 'foundation/routes'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
@@ -33,8 +34,8 @@ const Section: NextPage = () => {
         <>
           <Title size={'h3'}>{section.contents.name}</Title>
 
-          {section.contents.type === 'article' ? (
-            <pre>{JSON.stringify(section, null, 2)}</pre>
+          {section.contents.type === 'article' && session ? (
+            <SectionArticle section={section.contents} />
           ) : null}
           {section.contents.type === 'quiz' ? <div>quiz</div> : null}
           {section.contents.type === 'sandbox' && session ? (
