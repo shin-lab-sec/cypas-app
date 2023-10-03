@@ -3,12 +3,12 @@ import type { NextPage } from 'next'
 import { ApiError } from 'next/dist/server/api-utils'
 import React from 'react'
 import { getRoute } from '../foundation/routes'
-import { useStartSandbox, useDeleteSandbox } from 'features/sandbox/hooks'
+import { useVerifiedSession } from 'features/auth/hooks'
+import { useDeleteSandbox } from 'features/sandbox/hooks'
 import { DashBoardLayout } from 'layouts/DashBoardLayout'
-import { useSandboxValue } from 'features/sandbox/atoms'
 
 const Home: NextPage = () => {
-  const { sandboxUrl, startSandbox } = useStartSandbox()
+  const { data: session } = useVerifiedSession()
   const { deleteSandbox } = useDeleteSandbox()
 
   return (
@@ -22,23 +22,12 @@ const Home: NextPage = () => {
       <Title size={'h3'}>サンドボックス</Title>
       <Group mt={'md'}>
         <Button
-          onClick={async () => {
-            try {
-              await startSandbox()
-            } catch (e) {
-              if (e instanceof ApiError) {
-                console.log(e)
-              }
-            }
-          }}
-        >
-          スタート
-        </Button>
-        <Button
           variant="outline"
           onClick={async () => {
             try {
-              await deleteSandbox()
+              if (session) {
+                await deleteSandbox(session.user)
+              }
             } catch (e) {
               if (e instanceof ApiError) {
                 console.log(e)
@@ -49,15 +38,6 @@ const Home: NextPage = () => {
           削除
         </Button>
       </Group>
-
-      {/* <div>
-        <iframe
-          title="terminal"
-          height={'100%'}
-          width={'100%'}
-          src={scenarioUrl}
-        ></iframe>
-      </div> */}
     </DashBoardLayout>
   )
 }
