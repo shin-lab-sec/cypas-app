@@ -1,6 +1,6 @@
 import { useEffect } from 'react'
 import { useRecoilCallback } from 'recoil'
-import { deleteApi } from './../../foundation/utils/browser/apiClient'
+import { deleteApi, postApi } from './../../foundation/utils/browser/apiClient'
 import { SessionUser } from 'features/auth/types'
 import { sandboxState } from 'features/sandbox/atoms'
 import {
@@ -11,6 +11,7 @@ import {
   activeToDeleting,
   deletingToInactive,
   readyToInactive,
+  getSandboxUrl,
 } from 'features/sandbox/services'
 import { SandboxInfo } from 'features/sandbox/types'
 
@@ -61,17 +62,16 @@ export const useStartSandbox = () => {
         )
 
         try {
-          // const { key: sandboxKey } = await postApi('/api/sandbox', {
-          //   scenarioId: 'id',
-          //   ownerName: ownerName || user.name,
-          //   userName: user.name,
-          // })
+          const { key: sandboxKey } = await postApi('/api/sandbox', {
+            scenarioId: 'id',
+            ownerName: ownerName || user.name,
+            userName: user.name,
+          })
 
           set(sandboxState, s =>
             s.status === 'creating'
-              ? creatingToActive(s, 'https://google.com')
-              : // ? creatingToActive(s, getSandboxUrl(sandboxKey))
-                toError('error: no creating sandbox'),
+              ? creatingToActive(s, getSandboxUrl(sandboxKey))
+              : toError('error: no creating sandbox'),
           )
         } catch (error) {
           set(sandboxState, toError('failed to get sandbox key'))
@@ -114,7 +114,6 @@ export const useDeleteSandbox = () => {
           )
         } catch (error) {
           set(sandboxState, toError('failed to delete sandbox'))
-          throw error
         }
       },
     [],

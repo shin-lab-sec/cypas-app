@@ -27,7 +27,7 @@ const Course: NextPage = () => {
           <Text mt="sm">{course.contents.description}</Text>
 
           <Stack mt={'lg'}>
-            {course.contents.sections.map(section => (
+            {course.contents.sections?.map(section => (
               <Box
                 key={section.id}
                 sx={t => ({
