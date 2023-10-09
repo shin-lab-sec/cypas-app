@@ -21,9 +21,9 @@ Cypas におけるユーザー演習アプリの役割を持ったリポジト�
 git clone https://github.com/shin-lab-sec/cypas-app.git
 ```
 
-### step2 .env 作成
+### step2 .env ファイル更新
 
-.env.example を参考に.env ファイルを作成する
+.env ファイルの`#host`部分を更新する
 
 ### step3 cypas-local-tls-proxy 起動
 

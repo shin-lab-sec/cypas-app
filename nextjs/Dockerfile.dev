@@ -2,5 +2,5 @@ FROM node:18.12.1-bullseye-slim
 
 WORKDIR /app
 RUN apt-get update && apt-get -y install openssl bash dnsutils iputils-ping net-tools curl
-COPY package.json ./
+COPY nextjs/package.json ./
 RUN yarn --frozen-lockfile
