@@ -39,3 +39,11 @@ docker compose up
 ### step5 コンテナ接続
 
 コンテナ起動後は vscode で nextjs コンテナに接続（基本作業はコンテナ内）
+
+## 本番用 docker compose up
+
+.env ファイルを上書きした後
+
+```
+docker compose -f docker-compose.prod.yml up --build
+```

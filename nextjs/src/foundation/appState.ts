@@ -1,5 +1,4 @@
 import useSWR, { KeyedMutator } from 'swr'
-import { Sandbox } from 'features/sandbox/types'
 
 type AppState = {
   openNavbar: boolean

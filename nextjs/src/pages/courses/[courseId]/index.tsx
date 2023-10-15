@@ -15,7 +15,7 @@ const Course: NextPage = () => {
       breadcrumbsList={[
         getRoute('/courses'),
         getRoute('/courses/:id', {
-          id: router.query.courseId,
+          id: router.query.courseId as string,
           title: course.state === 'hasValue' ? course.contents.name : '',
         }),
       ]}

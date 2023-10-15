@@ -38,6 +38,7 @@ const Dev: NextPage = () => {
   const info: SandboxInfo = {
     ownerName,
     courseId: '',
+    courseName: '',
     sectionId: '',
     userAgentType: 'terminal',
     userName: '',

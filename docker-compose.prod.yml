@@ -1,15 +1,8 @@
 services:
   nextjs:
     build:
-      dockerfile: nextjs/Dockerfile.dev
+      dockerfile: nextjs/Dockerfile.prod
     container_name: nextjs
-    volumes:
-      - ./nextjs:/app
-      - ./.env:/app/.env
-      - nextjs_node_modules:/app/node_modules
-      - .vscode:/app/.vscode
-    environment:
-      - WATCHPACK_POLLING=true
     extra_hosts:
       # コンテナ内部のdnsではAPI routesでバックエンド側のドメインを名前解決できないため
       # 本当はホスト側のlocalhostに接続したいが、localhostの挙動が特殊なためルーターを経由して外からのアクセスと同等にしている
@@ -19,16 +12,12 @@ services:
       - 8000:8000
     depends_on:
       - mysql
-    entrypoint: >
-      bash -c "
-      npx prisma migrate dev --name init &&
-      yarn run dev
-      "
+
     restart: on-failure
   mysql:
     build:
       context: ./mysql
-      dockerfile: Dockerfile.dev
+      dockerfile: Dockerfile.prod
     container_name: mysql
     environment:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
@@ -36,19 +25,5 @@ services:
     volumes:
       - mysql-db-store:/var/lib/mysql
 
-  mail:
-    build:
-      context: ./mail
-      dockerfile: Dockerfile.dev
-    container_name: mail
-    ports:
-      - '8025:8025'
-    environment:
-      MH_STORAGE: maildir
-      MH_MAILDIR_PATH: /tmp
-    volumes:
-      - maildir:/tmp
 volumes:
-  nextjs_node_modules:
   mysql-db-store:
-  maildir:

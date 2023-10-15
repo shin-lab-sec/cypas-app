@@ -16,11 +16,15 @@ export const routes = {
     title: 'コース',
     href: '/courses',
   },
-  '/courses/:id': ({ title, id }) => ({
+  '/courses/:id': ({ title, id }: Record<string, string>) => ({
     title,
     href: `/courses/${id}`,
   }),
-  '/courses/:cid/sections/:sid': ({ cid, title, sid }) => ({
+  '/courses/:cid/sections/:sid': ({
+    cid,
+    title,
+    sid,
+  }: Record<string, string>) => ({
     title,
     href: `/courses/${cid}/sections/${sid}`,
   }),

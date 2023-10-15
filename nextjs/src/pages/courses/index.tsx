@@ -40,6 +40,7 @@ const Courses: NextPage = () => {
                 <Card.Section sx={{ aspectRatio: '16/9' }}>
                   {/* TODO: cms用のimgコンポーネント作る */}
                   {course.imageUrl ? (
+                    // eslint-disable-next-line @next/next/no-img-element
                     <img
                       src={course.imageUrl}
                       height={160}

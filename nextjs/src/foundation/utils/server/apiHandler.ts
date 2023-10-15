@@ -30,7 +30,7 @@ export const apiHandler =
           Url extends keyof Api['GET'] ? Api['GET'][Url][1] | Error : undefined
         >,
         session: Session,
-      ) => Promise<void>
+      ) => Promise<any>
       post?: (
         req: ApiNonQueryRequest<
           Url extends keyof Api['POST'] ? Api['POST'][Url][0] : undefined
@@ -41,7 +41,7 @@ export const apiHandler =
             : undefined
         >,
         session: Session,
-      ) => Promise<void>
+      ) => Promise<any>
       put?: (
         req: ApiNonQueryRequest<
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][0] : undefined
@@ -50,7 +50,7 @@ export const apiHandler =
           Url extends keyof Api['PUT'] ? Api['PUT'][Url][1] | Error : undefined
         >,
         session: Session,
-      ) => Promise<void>
+      ) => Promise<any>
       delete?: (
         req: ApiNonBodyRequest<
           Url extends keyof Api['DELETE'] ? Api['DELETE'][Url][0] : undefined
@@ -61,7 +61,7 @@ export const apiHandler =
             : undefined
         >,
         session: Session,
-      ) => Promise<void>
+      ) => Promise<void | NextApiResponse<any | Error>>
     },
   ) =>
   async (req: NextApiRequest, res: NextApiResponse) => {
