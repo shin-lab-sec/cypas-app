@@ -23,7 +23,8 @@ git clone https://github.com/shin-lab-sec/cypas-app.git
 
 ### step2 .env ファイル更新
 
-.env ファイルの`#host`部分を更新する
+.env ファイルの`#host`部分を更新する(push はせずにローカルで書き換えるようにする)
+デフォルトで.env を読み込むソフトウェアが多いので、全ての環境で`.env`という命名になっている。環境によって上書きして読み込む。
 
 ### step3 cypas-local-tls-proxy 起動
 
