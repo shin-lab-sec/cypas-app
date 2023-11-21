@@ -67,12 +67,11 @@ export const fetchApi = async <T>(
     if (!res.ok) {
       throw await ApiError.init(res)
     }
-    result = await res.json()
+    result = res.status === 204 ? '' : await res.json()
   } catch (error) {
     if (error instanceof ApiError) {
       throw error
     }
-    console.log(error)
     throw new Error('unknown error')
   }
 
