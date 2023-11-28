@@ -8,6 +8,7 @@ const initState: AppState = {
   openNavbar: true,
 }
 
+// グローバルステートを管理するhooks
 export const useAppState = <Path extends keyof AppState>(
   path: Path,
 ): [AppState[Path], KeyedMutator<AppState[Path]>] => {
