@@ -4,6 +4,10 @@ Cypas におけるユーザー演習アプリの役割を持ったリポジト�
 
 ## 演習イメージ
 
+全体
+
+https://github.com/user-attachments/assets/e454eeee-5f16-40bb-a354-319828fd17a9
+
 コース選択画面
 ![image](https://github.com/shin-lab-sec/cypas-app/assets/65057976/618d8453-fffd-4658-8d3b-0af70e49d8b2)
 
